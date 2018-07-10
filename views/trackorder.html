@@ -1,0 +1,71 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+
+<div ng-controller="PlaceOrderController">
+
+    <!-- begin breadcrumb -->
+
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Track Order</li>
+    </ol>
+
+    <!-- end breadcrumb -->
+
+    <!-- begin page-header -->
+
+    <h1 class="page-header">Track Order<small></small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-6">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Track Order</h4>
+                </div>
+              <div class="panel-body" >
+				
+				   <div class="form-group">
+                    <form class="form-horizontal" method="post" ng-submit="checkExist()" >  
+                      <div class="form-group">
+                    	<label class="control-label col-md-4" for="takeorder">Mobile Number</label>
+                        <div class="col-md-6">
+                           <input type="text" autocomplete="off" class="form-control" ng-model="customer.mobile" name="mobile" placeholder="Enter Mobile Number" />
+                        </div>
+                      </div>
+					  <div class="form-group">
+                    	<label class="control-label col-md-4" for="takeorder">&nbsp;</label>
+                        <div class="col-md-6">
+							<label class="control-label col-md-4" for="takeorder">OR</label>
+                        </div>
+                      </div>
+					  <div class="form-group">
+                    	<label class="control-label col-md-4" for="takeorder">Order Id</label>
+                        <div class="col-md-6">
+                           <input type="text" autocomplete="off" class="form-control" ng-model="customer.orderid" name="orderid" placeholder="EnterOrder Id" />
+                        </div>
+                      </div>
+                      <div class="form-group m-b-0">
+                        <label class="control-label col-md-4"></label>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary width-xs">Track</button>
+                        </div>
+                      </div>
+   				   </form>
+               </div>
+			</div>
+            
+</div>
+</div>
+
+      
+              
+</div>
+</div>

@@ -1,0 +1,240 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="PlaceOrderController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Place Order</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Place Order <small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Add / Modify Items to Place Order </h4>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="addEditPlaceOrder" ng-submit="savePreOrder();">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Select Service <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="placeorder.service" ng-change="getItemTypes();" ng-options=" s.id as s.name for s in services" ng-disabled="epo" required="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Select Item Type <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="placeorder.itemtype" ng-options="it.id as it.name for it in itemTypes" ng-change="getServiceItems(placeorder.itemtype);" ng-disabled="epo" required="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Select Item <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="placeorder.pitem" name="pitem" ng-options="i.id as i.name for i in items" ng-disabled="epo" required="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="icount">Item Count <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="placeorder.icount" name="icount" autocomplete="off" placeholder="no of itmes" required="true" />
+                            </div>
+                        </div>
+                        <div ng-show="placeorder.icount>0" class="form-group">
+                            <div class="col-md-12" style="padding-left:15px;">
+                                <div ng-repeat="a in addons" class="checkbox col-sm-12">
+                                    <label class="col-sm-4">
+                                        <input type="checkbox" ng-click="a.selected = !a.selected" ng-checked="a.selected">{{a.name}}</label>
+                                    <div class="col-sm-3">
+                                        <input ng-show="placeorder.addons" type="number" ng-model="a.quantity" name="acount" ng-change="a.totalCost = a.quantity*a.cost" min="1" ng-disabled="!a.selected" class="form-control">
+                                    </div>
+                                    <div class="col-sm-offset-1 col-sm-3">
+                                        <input ng-show="placeorder.addons" type="number" ng-model="a.totalCost" name="acost" ng-disabled="true" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary width-xs" ng-disabled="addEditPlaceOrder.$invalid">Add/Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8" ng-show="temporders.length>0">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title"> Order Items </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive  " style="min-height:900px; ">
+                        <div class="col-md-3 search1">
+                            <button type="submit" class="btn btn-primary width-xs" ng-click="clearCartItems();">Clear Cart</button>
+                        </div>
+                        <form name="mainorderForm" novalidate="" ng-submit="saveMainOrder();">
+                            <table class="table table-condensed table-bordered table-striped">
+                                <tbody>
+                                    <tr style="color:#000;font-size:13px;">
+                                        <th> S.No</th>
+                                        <th> Service</th>
+                                        <th> Item</th>
+                                        <th> Addon</th>
+                                        <th> Cost</th>
+                                        <th> Edit</th>
+                                        <th> Delete</th>
+                                    </tr>
+                                    <tr ng-repeat="to in temporders  track by $index">
+                                        <td data-title="'S.No'" sortable="'id'">{{$index+1}}</td>
+                                        <td><b>{{to.service_id.name}}</b></td>
+                                        <td>{{to.item_id.name}} - <b>{{to.icount}}</b></td>
+                                        <td><span ng-repeat="ta in to.addons"> {{ta.name}} - <b>{{ta.acount}}</b> <br></span></td>
+                                        <td>{{to.cost}}</td>
+                                        <td><img src="assets/img/edit.png" ng-click="editOrderItem(to.id, to, $index);"> </td>
+                                        <td><a ng-click="deleteOrderItem(to.id)">Delete</a> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-12 ">
+                                <div class="col-md-5 form-horizontal">
+                                    <div class="form-group" ng-show="userRole == 'SUPER_ADMIN'">
+                                        <label class="control-label col-md-4">Order Date <span class="text-danger">*</span> :</label>
+                                        <div class="col-md-8">
+                                            <input id="datepicker-default-order" class="form-control datepicker" type="text" value="" name="startdate" ng-model="mainorder.orderDate" data-behavior="datepicker">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Address :</label>
+                                        <div class="col-md-8" style="padding:0;">
+                                            <textarea ng-disabled="true" class="form-control" rows="6" style="resize:none;">{{addresses.address+','+addresses.landmark+','+addresses.area+' - '+addresses.pincode}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="addresses.defaultDiscount>=0">
+                                        <label class="control-label col-md-4">Default Discount :</label>
+                                        <div class="control-label col-md-8 text-left">                                           
+                                            <b>{{addresses.defaultDiscount}}%</b>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="addresses.vendorDiscount>=0">
+                                        <label class="control-label col-md-4">Vendor Discount :</label>
+                                        <div class="control-label col-md-8 text-left">                                           
+                                            <b>{{addresses.vendorDiscount}}%</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">Quick Delivery : </label>
+                                        <div class="col-md-7">
+                                            <input type="checkbox" name="qd" ng-model="mainorder.qd" ng-checked="mainorder.qd">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="mainorder.qd">
+                                        <label class="control-label col-md-5">Quick Delivery % : </label>
+                                        <div class="col-md-7">
+                                            <input type="number" class="form-control" name="qdPercent" ng-keyup="quickCalculations()" ng-model="mainorder.qdPercent">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">
+                                            <input type="checkbox" name="isDiscount" ng-click="discountType('d')" ng-model="mainorder.isDiscount" ng-checked="{{mainorder.isDiscount}}">Discount (INR) :</label>
+                                        <div class="col-md-7">
+                                            <input type="number" ng-disabled="!mainorder.isDiscount" class="form-control" id="discountTotal" ng-model="mainorder.adminDiscountAmount" name="adminDiscountAmount" ng-keyup="quickCalculation()" min="0" readonly>
+                                        </div> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">
+                                            <input type="checkbox" name="isCoupon" ng-click="discountType('c')" ng-model="mainorder.isCoupon" ng-disabled="mainorder.adminDiscountAmount" ng-checked="{{mainorder.isCoupon}}" style="    text-transform: uppercase;"> Coupon Code :</label>
+                                        <div class="col-md-7">
+                                            <input type="text" ng-disabled="!mainorder.isCoupon" class="form-control" id="couponCode" ng-model="mainorder.couponCode" name="couponCode">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="discountAndQuickDelivery">
+                                        <label class="control-label col-md-5">Sub Total :</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" value="{{subtotal}}" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="!discountAndQuickDelivery">
+                                        <label class="control-label col-md-5">Sub Total :</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" value="{{subtotal1}}" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">Service Charge :</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" value="0" ng-disabled="true" ng-if="addresses.servicetax == false">
+                                            <input class="form-control" value="{{subtotal * (14.5 / 100) | number: 2}}" ng-disabled="true" ng-if="addresses.servicetax && discountAndQuickDelivery">
+                                            <input class="form-control" value="{{subtotal1 * (14.5 / 100) | number: 2}}" ng-disabled="true" ng-if="addresses.servicetax && !discountAndQuickDelivery">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">Total:</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" value="{{mainorder.totalAmount}}" ng-disabled="true" ng-if="addresses.servicetax == false">
+                                            <input class="form-control" value="{{mainorder.totalAmount}}" ng-disabled="true" ng-if="addresses.servicetax">
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label class="control-label col-md-5">Delivery Date <span class="text-danger">*</span> :</label>
+                                        <div class="col-md-7">
+                                            <input id="datepicker-default-delivery" class="form-control datepicker" type="text" value="" name="startdate" ng-model="mainorder.deliveryDate" data-behavior="datepicker" required>
+                                        </div>
+                                      </div> -->
+                                    <div class="form-group" ng-hide="(temporders[0].service_id.id!==1) && (mainorder.qd==false)">
+                                        <label class="control-label col-md-5">Delivery Date <span class="text-danger">*</span> :</label>
+                                        <div class="col-md-7">
+                                            <input id="datepicker-default-delivery" class="form-control datepicker" type="text" value="" name="startdate" ng-model="mainorder.deliveryDate" data-behavior="datepicker" required ng-class="{'disabled':((temporders[0].service_id.id!==1) && (mainorder.qd==false))}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">Send SMS</label>
+                                        <div class="col-md-7">
+                                            <input type="checkbox" name="sms" ng-model="mainorder.sms" ng-true-value="1" ng-false-value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">Order Source <span class="text-danger">*</span></label>
+                                        <div class="col-md-2">
+                                            <input type="radio" name="ordSrc"  ng-model="mainorder.ordSrc" value="store" required> Srore visit
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="radio" name="ordSrc"  ng-model="mainorder.ordSrc" value="pickup" required> Pickupboy
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="radio" name="ordSrc"  ng-model="mainorder.ordSrc" value="callcenter" required> Call Center
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5"></label>
+                                        <div class="col-md-7">
+                                            <input type="submit" name="subumit" class="btn btn-primary" value="Place Order">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

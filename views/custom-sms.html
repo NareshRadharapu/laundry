@@ -1,0 +1,58 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="CustomSmsController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Send Custom SMS to Customer</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Send Custom SMS to Customer <small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Send Custom SMS to Customer</h4>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="validationForm" ng-submit="storeCustomerSms();">
+                        <!-- <div class="form-group">
+                            <label class="col-md-4 control-label">Select Store <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="sms.storeId" required>
+                                    <option value="">Select Area</option>
+                                    <option ng-repeat="a in areas" value="{{a.id}}" ng-selected="a.id==apartment.area">{{a.name}}</option>
+                                </select>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Mobile No <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                              <input type="mobile" class="form-control" ng-model="sms.mobile" required placeholder="Mobile Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Message <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" ng-model="sms.message" required rows="8" placeholder="Message"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-success width-xs">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

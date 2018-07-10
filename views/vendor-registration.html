@@ -1,0 +1,135 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="VendorController">
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Vendors List</li>
+  </ol>
+  <!-- end breadcrumb -->
+  <!-- begin page-header -->
+  <h1 class="page-header">Vendors List<small></small></h1>
+  <!-- end page-header -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+          </div>
+          <h4 class="panel-title">Add / Modify Vendor</h4>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" name="validationForm" ng-submit="addVendor()">
+            <div class="form-group">
+              <label class="col-md-4 control-label">Select Vendor group <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <select class="form-control" ng-model="vendor.vgroupId" name="vgroupId" required>
+                  <option value="">Select Group</option>
+                  <option ng-repeat="vg in vendorsGroupList" value="{{vg.id}}" ng-selected="vg.id==vendor.vgroupId">{{vg.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Name <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="text" autocomplete="off" class="form-control" ng-model="vendor.name" name="name" placeholder="Enter Name" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Code <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="text" autocomplete="off" class="form-control" ng-model="vendor.code" name="code" placeholder="Enter Code" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Email <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="email" autocomplete="off" class="form-control" ng-model="vendor.email" name="email" placeholder="Enter Email" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Mobile <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="text" autocomplete="off" class="form-control" ng-model="vendor.mobile" name="mobile" placeholder="Enter Mobile Number" required />
+              </div>
+            </div>            
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Discount % <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="Number" autocomplete="off" class="form-control" ng-model="vendor.discountPercent" name="discountPercent" placeholder="Enter Discount Percent" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Discount Expiry <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="discountExpiry" ng-model="vendor.discountExpiry" id="discountExpiry" placeholder="Select Discount Expiry">
+              </div>
+            </div> 
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Commission % <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="Number" autocomplete="off" class="form-control" ng-model="vendor.commissionPercent" name="commissionPercent" placeholder="Enter Commission Percent" required />
+              </div>
+            </div> 
+            <div class="form-group">
+              <label class="control-label col-md-4" for="vendors">Commission Expiry <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="commissionExpiry" ng-model="vendor.commissionExpiry" id="commissionExpiry" placeholder="Select Commission Expiry">
+              </div>
+            </div>          
+            <div class="form-group m-b-0">
+              <label class="control-label col-md-4"></label>
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-primary width-xs">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+          </div>
+          <h4 class="panel-title">Vendors List </h4>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <div class="col-md-3 search1">
+              <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" />
+              <br />
+            </div>
+            <table ng-table="tableParams" class="table table-condensed table-bordered table-striped" width="100%">
+              <tbody>
+                <tr ng-repeat="c in $data | filter:search">
+                  <td data-title="'S.No'" sortable="'id'">{{c.id}}</td>
+                  <td data-title="'Name'" sortable="'name'">{{c.name}}</td>
+                  <td data-title="'Code'" sortable="'code'">{{c.code}}</td>
+                  <td data-title="'Mobile'" sortable="'mobile'">{{c.mobile}}</td>
+                  <td data-title="'Discount %'" sortable="'discountPercent'">{{c.discountPercent }}</td>
+                  <td data-title="'Discount Expiry'">{{c.discountExpiry}}</td>
+                  <td data-title="'Commission %'" sortable="'commissionPercent'">{{c.commissionPercent }}</td>
+                  <td data-title="'Commission Expiry'">{{c.commissionExpiry}}</td> 
+                  <td data-title="'Vgroup'">{{c.vgroupId}}</td>
+                  <td data-title="'Edit'">
+                    <img src="assets/img/edit.png" ng-click="editVendor(c.id);"> 
+                  </td>
+                  <td data-title="'status'" sortable="'status'">
+                    <img src="assets/img/{{c.status}}.png" ng-click="statusVendor(c.id);"> 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

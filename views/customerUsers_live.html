@@ -1,0 +1,186 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="CustomerListController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Customers </li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Users List<small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Add / Modify User</h4>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="validationForm" ng-submit="addCustomer()">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customers">First Name <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="customer.firstname" name="firstname" placeholder="Enter First Name" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Last Name </label>
+                            <div class="col-md-6">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="customer.lastname" name="lastname" placeholder="Enter Last Name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Email </label>
+                            <div class="col-md-6">
+                                <input type="email" autocomplete="off" class="form-control" ng-model="customer.email" name="email" placeholder="Enter Email" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Mobile <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="tel" autocomplete="off" class="form-control" ng-model="customer.mobile" name="mobile" placeholder="Enter Mobile Number" ng-pattern="/^[0-9]{10}$/" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Store Location <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select ng-disabled="userRole=='STORE_ADMIN'" class="form-control" ng-model="customer.area" name="area" required>
+                                    <option value="">Select Store</option>
+                                    <option ng-repeat="a in areas" value="{{a.id}}" ng-selected="a.id==customer.area">{{a.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Address <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" ng-model="customer.address" name="address" placeholder="Enter Address" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Landmark </label>
+                            <div class="col-md-6">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="customer.landmark" name="landmark" placeholder="Enter Landmark" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Pincode</label>
+                            <div class="col-md-6">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="customer.pincode" name="pincode" placeholder="Pincode" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Lattitude</label>
+                            <div class="col-md-6">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="customer.lattitude" name="lattitude" placeholder="Lattitude" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Longitude</label>
+                            <div class="col-md-6">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="customer.longitude" name="longitude" placeholder="Longitude" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Date of Birth</label>
+                            <div class="col-md-6">
+                                <input type="date" autocomplete="off" class="form-control" ng-model="customer.dob" name="dob" placeholder="Date of Birth" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Aniversary Date</label>
+                            <div class="col-md-6">
+                                <input type="date" autocomplete="off" class="form-control" ng-model="customer.aniversaryDate" name="aniversaryDate" placeholder="Aniversary Date" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Flag </label>
+                            <div class="col-md-6">
+                                <input type="checkbox" ng-model="customer.isProblematic" ng-value="customer.isProblematic" ng-checked="customer.isProblematic"> Yes
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Default Starch</label>
+                            <div class="col-md-6 margin_top">
+                                <input type="checkbox" ng-model="customer.isStarch" ng-value="customer.isStarch" ng-checked="customer.isStarch"> Yes
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customer">Perfume Spray</label>
+                            <div class="col-md-6 margin_top">
+                                <input type="checkbox" ng-model="customer.isPerfume" ng-value="customer.isPerfume" ng-checked="customer.isPerfume"> Yes
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary width-xs" ng-disabled="validationForm.$invalid">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Users List </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div class="col-md-3 search1">
+                            <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" ng-change="applyGlobalSearch()" />
+                            <br />
+                        </div>
+                        <table ng-table="tableParams" class="table table-striped table-bordered text-nowrap text-center" width="100%">
+                            <tbody>  
+                                <tr ng-repeat="c in $data track by $index">
+                                    <td data-title="'S.No'" sortable="'id'">{{c.id}}</td>
+                                    <td data-title="'Name'" sortable="'firstname'"><a href="#app/individualuserorders/id/{{c.id}}">{{c.name}}</a> </td>
+                                    <!-- <td data-title="'Mobile'" sortable="'mobile'">{{c.mobile}}</td> -->
+                                    <td data-title="'Store'" sortable="'address'">{{c.store}}</td>
+                                    <td data-title="'Action'" sortable="'isAddress'" class="text-center">
+                                        <a ng-show="c.id" href="#/app/placeorder/id/{{c.id}}" class="btn btn-primary" ng-class="{'disabled':(c.isAddress == true || userRole=='CALL_CENTER')}" >Place Order</a>
+                                    </td>
+                                    <td data-title="'Edit'"><img src="assets/img/edit.png" ng-click="editCustomer(c.id);" ng-class="{'disabled':( userRole=='CALL_CENTER')}"> </td>
+                                    <td data-title="'Package'" class="text-center">
+                                        <span ng-click="customerPackageModal(c.id)" class="fa fa-pinterest-square" style="font-size: 25px;" ng-class="{'disabled':( userRole=='CALL_CENTER')}"></span>
+                                    </td>
+                                    <td data-title="'Reg Date'" sortable="'createdAt'">{{c.createdAt | date : 'MMM dd, yyyy'}}</td>
+                                    <td data-title="'Status'" sortable="'status'" >
+                                        <img src="assets/img/{{c.status}}.png" ng-click="statusCustomer(c.id);" ng-class="{'disabled':( userRole=='CALL_CENTER')}"> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <modal title="Add Package " visible="customerPackageFlag">
+                        <form role="form" ng-submit="addPackage()" class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Status</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" ng-model="customerPackage.packageId" class="" ng-options="p.pid as p.name for p in customerPackage.packageList" id="packageList"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2"></label>
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </modal>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

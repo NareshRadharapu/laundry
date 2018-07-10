@@ -1,0 +1,469 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="PrintOrderController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Place Orders</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Order Details<small></small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-6 printSection" style="width: 750px !important;">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Order Details</h4>
+                </div>
+                                <div class="panel-body">
+                    <!-- <p class="receipt" style="text-align:center;" ng-show="0">
+            <button class="btn btn-primary">Receipt</button>
+          </p> -->
+                    <div class="col-xs-12" style="border:1px solid #000;">
+                        <div class="col-xs-3 text-center">
+                            <img src="uploads/logoweb.png" style="margin: 0px 0px 10px 5px;">
+                        </div>
+                        <div class="col-xs-9">
+                            <table style="color:#000; width:90%;">
+                                <tr>
+                                    <td colspan="2">
+                                        <h1 class="text-center" style="font-size: 35px;font-family: -webkit-body;    margin: 0;"> City Business Services Pvt Ltd</h1>
+                                        <h3 style="text-align: center;margin: 0 0 8px 0px; font-size: 14px;font-weight: bold;">
+                                        LAUNDRY DIVISION (Formerly - Laundry Waves)</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size:12px;text-align:center;color:#000;padding-bottom: 12px; text-transform: capitalize;" colspan="2">
+                                        <p class="text-center" style="margin:0"> {{ordersummary.store.address}}, {{ordersummary.store.landmark}}, {{ordersummary.store.name}} - {{ordersummary.store.pincode}}
+                                            <br/> <b style="font-size: 20px;">Phone : 04067445566 </b>
+                                            <!-- {{ordersummary.store.mobile}} -->
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td style="font-size:16px;font-weight: bold;">
+                                        Receipt No: {{ordersummary.receipt.receptId}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <table class="table" style="color:#000;border:1px solid #000;text-align:left;">
+                        <tbody>
+                            <tr style="border-top:1px solid #ccc;">
+                                <td colspan="2" class="no-border"><b>Order Summary</td>
+                <td colspan="2" class="text-left font-weight no-border" style="padding-right:15px;"> <b>Date &nbsp;&nbsp;&nbsp;&nbsp; &nbsp:</b><span style="text-transform: uppercase;"> {{ordersummary.receipt.orderDate}}</span></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border semi-bold" style="width:125px;">Order Id </td>
+                                <td class="no-border" style="width:250px;">: {{ordersummary.receipt.orderId}}</td>
+                                <td class="no-border semi-bold">Address:</td>
+                                <td rowspan="3" class="no-border" style="vertical-align:baseline;"> {{ordersummary.receipt.address}}, {{ordersummary.receipt.landmark}}, {{ordersummary.store.name}} - {{ordersummary.receipt.pincode}}</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border semi-bold">Customer Name </td>
+                                <td class="no-border">: {{ordersummary.receipt.customerName}} </td>
+                                <td class="no-border">&nbsp;</td>
+                                <!-- <td class="no-border"> &nbsp; {{ordersummary.receipt.landmark}}, {{ordersummary.receipt.pincode}}</td> -->
+                            </tr>
+                            <tr>
+                                <td class="no-border semi-bold">Mobile Number </td>
+                                <td class="no-border">: {{ordersummary.receipt.mobile}} </td>
+                                <td class="no-border">&nbsp; </td>
+                                <!-- <td class="no-border"> &nbsp; {{ordersummary.receipt.landmark}}, {{ordersummary.receipt.pincode}}</td> -->
+                            </tr>
+                            <tr>
+                                <td class="semi-bold" colspan="4" style="border-top:1px solid #ccc !important; border-bottom: 1px solid #ccc">
+                                    <table class="tot" style="width:100% !important;">
+                                        <tr>
+                                            <td style="width:38% !important;">Bill Details</td>
+                                            <td class="qty text-left"> Quantity</td>
+                                            <td class="text-left">Amount</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="4" style="padding-bottom: 0;">
+                                    <table ng-repeat="(k,s) in ordersummary.orderItems" style="width:80% !important;">
+                                        <thead>
+                                            <tr>
+                                                <th class="no-border">{{k}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="item in s.items">
+                                            <td class="no-border">
+                                                <table class="col-md-12" style="width:100% !important;">
+                                                    <tr>
+                                                        <td style="width:50% !important;">{{$index+1}}. {{item.name}} - {{item.itemType}} </td>
+                                                        <td class="qty text-left"> {{item.icount}} </td>
+                                                        <!-- <td class="qty text-left"> {{item.icount}} X {{item.cst}}</td> -->
+                                                        <td class="text-center" style="text-transform: capitalize;"> {{item.status}}</td>
+                                                        <td class="cost text-right">{{item.cost}}</td>
+                                                    </tr>
+                                                    <tr ng-repeat="ad in item.addons">
+                                                        <td class="p-l-10" style="width:50% !important;">
+                                                            <span class="fa fa-puzzle-piece"></span> {{ad.name}}
+                                                        </td>
+                                                        <td class="qty text-left"> {{ad.acount}}</td>
+                                                        <!-- <td class="qty text-left"> {{ad.acount}} X {{ad.acst}}</td> -->
+                                                        <td class="cost text-right">{{ad.cost}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="no-border" style="padding: 0 15px">
+                                    <strong>Total Items(Qty) : {{ordersummary.receipt.totalItems}} </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="4">
+                                    <table style="width:80% !important;">
+                                        <tr ng-hide="ordersummary.receipt.serviceCharge == 0">
+                                            <td>Service Tax (14.5%)</td>
+                                            <td class="cost text-right">{{ordersummary.receipt.serviceCharge}}
+                                            </td>
+                                        </tr>
+                                        <tr ng-hide="ordersummary.receipt.qdAmount == 0">
+                                            <td>Quick Delivery Amount</td>
+                                            <td class="cost text-right">{{ordersummary.receipt.qdAmount}}</td>
+                                        </tr>
+                                        <tr ng-hide="ordersummary.receipt.adminDiscountAmount == 0">
+                                            <td>Discount ({{ordersummary.receipt.adminDiscount}}%)</td>
+                                            <td class="cost text-right">- {{ordersummary.receipt.adminDiscountAmount}}</td>
+                                        </tr>
+                                        <tr ng-hide="ordersummary.receipt.returnGarmentAmount == 0">
+                                            <td>Return Garments Amount </td>
+                                            <td class="cost text-right">- {{ordersummary.receipt.returnGarmentAmount}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="4" style="border-top: 1px solid #ccc !important;">
+                                    <table style="width:80% !important;">
+                                        <!-- <tr>
+                                                  <td>Sub Total</td><td class="cost text-right">{{ordersummary.receipt.subTotal}}</td>
+                                        </tr> -->
+                                        <tr>
+                                            <td class="semi-bold" ng-class="{'hide':(ordersummary.receipt.serviceCode !== 'SI')}">Total Payable Amount
+                                            </td>
+                                            <td class="semi-bold" ng-class="{'hide':(ordersummary.receipt.serviceCode == 'SI')}">Total Payable Amount (Including GST)
+                                                <br> GST No: GST-36AAGCC4564J1ZF
+                                            </td>
+                                            <td class="cost text-right semi-bold">{{ordersummary.receipt.totalAmount}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="no-border">
+                                    <b>Exp.Delivery Date:</b> {{ordersummary.receipt.deliveryDate}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="no-border">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="no-border text-right">&nbsp;</td>
+                                <td class="no-border text-center semi-bold">Store Admin Signature</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="no-border">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>            
+                </div>
+                <!-- <div class="panel-body">
+                    <div class="col-xs-12" style="border:1px solid #000;">
+                        <div class="col-xs-2">
+                            <img src="uploads/logoweb.png" style="width:100%;margin:5px;">
+                        </div>
+                        <div class="col-xs-10">
+                            <table style="color:#000; width:90%;">
+                                <tr>
+                                    <td colspan="2">
+                                        <h1 class="text-center" style="font-size: 40px;font-family: -webkit-body;    margin: 0;"> Laundry Waves</h1>
+                                        <h4 style="float:right;    margin: 0 80px 5px; font-size: 12px;"> Better.. Faster.. Cleaner</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size:12px;text-align:center;color:#000;padding-bottom: 12px;" colspan="2">
+                                        <p class="text-center" style="margin:0"> {{ordersummary.store.address}}, {{ordersummary.store.landmark}}, {{ordersummary.store.name}} - {{ordersummary.store.pincode}}</p>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td style="font-size:16px;">
+                                        Mobile : {{ordersummary.store.mobile}}
+                                    </td>
+                                    <td style="font-size:16px;font-weight: bold;">
+                                        Receipt No: {{ordersummary.receipt.receptId}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <table class="table" style="color:#000;border:1px solid #000;text-align:left;">
+                        <tbody>
+                            <tr style="border-top:1px solid #ccc;">
+                                <td colspan="2" class="no-border"><b>Order Summary</td>
+                                <td colspan="2" class="text-right font-weight no-border semi-bold" style="padding-right:15px;">Date: {{ordersummary.receipt.orderDate}}</b></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border semi-bold" style="width:125px;">Order Id </td>
+                                <td class="no-border" style="width:250px;">: {{ordersummary.receipt.orderId}}</td>
+                                <td class="no-border semi-bold">Address:</td>
+                                <td rowspan="3" class="no-border" style="vertical-align:baseline;"> {{ordersummary.receipt.address}}, {{ordersummary.receipt.landmark}}, {{ordersummary.store.name}} - {{ordersummary.receipt.pincode}}</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border semi-bold">Customer Name </td>
+                                <td class="no-border">: {{ordersummary.receipt.customerName}} </td>
+                                <td class="no-border">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border semi-bold">Mobile Number </td>
+                                <td class="no-border">: {{ordersummary.receipt.mobile}} </td>
+                                <td class="no-border">&nbsp; </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border semi-bold" colspan="4">
+                                    <table class="tot" style="width:100% !important; border-top:1px solid #ccc;">
+                                        <tr>
+                                            <td>Bill Details</td>
+                                            <td class="text-center">Amount</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="4">
+                                    <table ng-repeat="(k,s) in ordersummary.orderItems" style="width:80% !important;">
+                                        <thead>
+                                            <tr>
+                                                <th class="no-border">{{k}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="item in s.items">
+                                            <td class="no-border">
+                                                <table class="col-md-12" style="width:100% !important;">
+                                                    <tr>
+                                                        <td>{{item.icount}} x {{item.name}} - {{item.itemType}}</td>
+                                                        <td class="cost text-right">{{item.cost}}</td>
+                                                    </tr>
+                                                    <tr ng-repeat="ad in item.addons">
+                                                        <td class="p-l-10">{{ad.acount}} x {{ad.name}}</td>
+                                                        <td class="cost text-right">{{ad.cost}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="4">
+                                    <table style="width:80% !important;">
+                                        <tr ng-hide="ordersummary.receipt.serviceCharge == 0">
+                                            <td>Service Tax</td>
+                                            <td class="cost text-right">{{ordersummary.receipt.serviceCharge}}
+                                            </td>
+                                        </tr>
+                                        <tr ng-hide="ordersummary.receipt.adminDiscountAmount == 0">
+                                            <td>Discount</td>
+                                            <td class="cost text-right">-{{ordersummary.receipt.adminDiscountAmount}}</td>
+                                        </tr>
+                                        <tr ng-hide="ordersummary.receipt.qdAmount == 0">
+                                            <td>Quick Delivery Amount</td>
+                                            <td class="cost text-right">{{ordersummary.receipt.qdAmount}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="4" style="border-top: 1px solid #ccc !important;">
+                                    <table style="width:80% !important;">
+                                        <tr>
+                                            <td class="semi-bold">Total Payable Amount</td>
+                                            <td class="cost text-right semi-bold">{{ordersummary.receipt.totalAmount}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="no-border">
+                                    <b>Delivery Date:</b> {{ordersummary.receipt.deliveryDate}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="no-border">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="no-border">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-controller="OrderDetailsController" ng-show="ordersDetails.length>0">
+    <!-- begin page-header -->
+    <h1 class="page-header">Processed Order Details<small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Processed Order Details</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div class="col-md-3 search1">
+                            <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" />
+                            <br />
+                        </div>
+                        <form>
+                            <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                                <tbody>
+                                    <tr style="color:#000;">
+                                        <th>Item Id</th>
+                                        <th>Item Name</th>
+                                        <th>Service</th>
+                                        <th>Brand</th>
+                                        <th>Color</th>
+                                        <th>Status</th>
+                                        <th>Message</th>
+                                        <th>In Barcode</th>
+                                        <th>Addons</th>
+                                        <th>Out Barcode</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <tr ng-repeat="order in ordersDetails | filter:search">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{order.name}}</td>
+                                        <td>{{order.service}}</td>
+                                        <td>{{order.brand}}</td>
+                                        <td>{{order.color}}</td>
+                                        <td>{{order.itemStatus}}</td>
+                                        <td>{{order.itemStatusMessage}}</td>
+                                        <td>{{order.inBarCode}}</td>
+                                        <td>
+                                            <div ng-repeat="addon in order.addons.addon track by $index">
+                                                {{addon.name}}</div>
+                                        </td>
+                                        <td>
+                                            <span ng-show="!order.outBarCode">  
+                       <input type="text" ng-model="order.outBarCodeIp" class="form-control" id="outbarcode" placeholder="outbarcode" ng-class="{'disabled':(order.itemStatus !== 'SADA' && order.itemStatus !== 'PO')}"/>
+                     </span>
+                                            <span ng-show="order.outBarCode">{{order.inBarCode}}</span>
+                                        </td>
+                                        <td>
+                                            <span ng-show="!order.outBarCode">
+                     <button type="button" class="btn btn-primary" ng-click="submitOrder(order)" ng-class="{'disabled':(order.itemStatus !== 'SADA' && order.itemStatus !== 'PO')}">Submit </button>
+                   </span>
+                                            <span ng-show="order.outBarCode">Ready to deliver</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-controller="OrderReturnGarmentsController" ng-show="returnGarments.length>0">
+    <h1 class="page-header">Order Return Garments Details<small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Order Return Garments Details</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div class="col-md-3 search1">
+                            <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" />
+                            <br />
+                        </div>
+                        <form>
+                            <table class="table table-condensed table-bordered table-striped">
+                                <tbody>
+                                    <tr style="color:#000;">
+                                        <th>Item Id</th>
+                                        <th>Item Name</th>
+                                        <th>Message</th>
+                                        <!-- <th>Service</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>In Barcode</th>
+                    <th>Addons</th>
+                    <th>Out Barcode</th>                
+                    <th>Action</th> -->
+                                    </tr>
+                                    <tr ng-repeat="order in returnGarments | filter:search">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{order.name}}</td>
+                                        <td>{{order.message}}</td>
+                                        <!-- <td>{{order.service}}</td>
+                    <td>{{order.brand}}</td>
+                    <td>{{order.color}}</td>
+                    <td>{{order.inBarCode}}</td>
+                    <td>
+                      <div ng-repeat="addon in order.addons.addon track by $index">
+                        {{addon.name}}</div>
+                      </td>
+                      <td>
+                        <span ng-show="!order.outBarCode">  
+                          <input type="text" ng-model="order.outBarCodeIp" class="form-control" id="outbarcode" placeholder="outbarcode" />
+                        </span>
+                        <span  ng-show="order.outBarCode">{{order.inBarCode}}</span>
+                      </td>
+                      <td>
+                        <span ng-show="!order.outBarCode">
+                          <button type="button" class="btn btn-primary" ng-click="submitOrder(order)">Submit </button>
+                        </span>
+                        <span ng-show="order.outBarCode">Ready to deliver</span>
+                      </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

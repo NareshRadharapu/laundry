@@ -1,0 +1,94 @@
+<!--  begin #top-menu -->
+
+<div id="top-menu" class="top-menu" ng-controller="topMenuController">
+
+  <div class="container-fluid">
+
+    <!-- begin top-menu nav -->
+
+    <ul class="nav"> 
+
+      <li class="has-sub" ng-class="{active:$state.includes('cu.dashboard')}">
+
+        <a href="javascript:;">
+
+          <b class="caret pull-right"></b>
+
+          <i class="fa fa-laptop"></i>
+
+          <span>Dashboard</span>
+
+        </a>
+
+        <ul class="sub-menu">
+
+         <li ui-sref-active="active"><a ui-sref="cu.cu-dashboard">Dashboard</a></li>
+
+       </ul>
+
+     </li>
+
+
+
+     <li class="has-sub" ng-class="{active:$state.includes('cu.ui')}">
+
+      <a href="javascript:;">
+
+        <b class="caret pull-right"></b>
+
+        <i class="fa fa-suitcase"></i>
+
+        <span>Order Screens</span> 
+
+      </a>
+
+      <ul class="sub-menu">
+
+        <li ui-sref-active="active"><a ui-sref="cu.cu-send-orders">CU Send Orders</a></li>
+
+        <li ui-sref-active="active"><a ui-sref="cu.cu-delivery-orders">CU Delivery Orders</a></li>
+
+        <li ui-sref-active="active"><a ui-sref="cu.cu-process-orders">CU Process Orders</a></li>
+
+        <li ui-sref-active="active"><a ui-sref="cu.cu-return-garments">CU Return Garments</a></li>
+
+        <li ui-sref-active="active"><a ui-sref="cu.cu-hold-garments">CU Hold Garments</a></li>
+
+        <li ui-sref-active="active"><a ui-sref="cu.cu-day-to-delivery-garments">CU Day-2-Delivery Garments</a></li>
+        <li ui-sref-active="active"><a ui-sref="cu.cuStatuswiseReport">CU Statuswise Report</a></li>
+        <li ui-sref-active="active"><a ui-sref="cu.store-delivery-orders">Store Delivery Orders List</a></li>
+
+      </ul>
+
+    </li>
+
+    <li class="has-sub" ng-class="{active:$state.includes('cu.ui')}">
+
+      <a href="javascript:;">
+
+        <b class="caret pull-right"></b>
+
+        <i class="fa fa-suitcase"></i>
+
+        <span>Registration</span> 
+
+      </a>
+
+      <ul class="sub-menu">
+
+        <li ui-sref-active="active"><a ui-sref="cu.employee-registration">Employee </a></li> 
+
+        <!-- <li ui-sref-active="active"><a ui-sref="cu.employee-registration">Pickup Boy </a></li> -->
+
+      </ul>
+
+    </li> 
+
+
+
+  </ul>
+
+</div>
+
+</div>
+

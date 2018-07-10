@@ -1,0 +1,183 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+
+<div ng-controller="VehicleController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Vehicles List</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Vehicles List <small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+ 		 <div class="col-md-5">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title"> Add / Modify Vehicle</h4>
+
+                </div>   
+
+                <div class="panel-body">
+
+                <form class="form-horizontal" name="validationForm" ng-submit="addVehicle();">
+
+              	<input type="hidden" class="form-control" ng-model="vehicle.id" name="id"  />
+
+                        <div class="form-group">
+
+                           <label class="col-md-4 control-label">Select Apartment <span class="text-danger">*</span></label>
+
+                            <div class="col-md-6">
+
+                            <select class="form-control" ng-model="vehicle.apartment" name="apartment" required ng-change="getBlocks(vehicle.apartment)">
+
+                            	<option value="">Select Apartment</option>
+
+                            	<option ng-repeat="apt in apartments" value="{{apt.id}}" ng-selected="apt.id==vehicle.apartment">{{apt.name}} - {{apt.area_id.name}}</option>
+
+                            </select>
+
+                            </div>   
+
+                        </div>
+
+                        <div class="form-group">
+                           <label class="col-md-4 control-label">Select Block <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                            <select class="form-control" ng-model="vehicle.block" ng-change="getFlats(vehicle.block);" required>
+                            	<option value=""> Select Block </option>
+                           		 <option ng-repeat="b in blocks" value="{{b.id}}" ng-selected="b.id==vehicle.block">{{b.name}}</option>
+                            </select>
+                            </div>     
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="vehicle">Select Flat <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="vehicle.flat" required ng-change="getCustomers(vehicle.flat)">
+                                <option value=""> Select Flat </option>
+                                 <option ng-repeat="f in flats" value="{{f.id}}" ng-selected="f.id==vehicle.flat" >{{f.name}}</option>
+                            </select>
+                            </div>   
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="customerId">CustomerID <span class="text-danger">*</span> </label>
+                            <div class="col-md-6">
+                              <select class="form-control" ng-model="vehicle.customerId" name="customerId" id="customerId" required ng-options="c.customerId as c.name for c in customers track by c.customerId " >
+                               
+                              </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="vtype">Vehicle Type <span class="text-danger">*</span> </label>
+                            <div class="col-md-6">
+                              <select class="form-control" ng-model="vehicle.vtype" name="vtype" id="vtype" required >
+                                <option value="">Select Vehicle Type</option>
+                                <option value="car">Car</option>
+                                <option value="bike">Bike</option>
+                                <option value="cycle">Cycle</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="vehicle">Brand </label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="vehicle.brand" name="brand" autocomplete="off" placeholder="Enter Brand Name" />
+                            </div>   
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="vehicle">Vehicle Reg No <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="vehicle.regno" name="regno" autocomplete="off" placeholder="Enter Vehicle Reg No" required />
+                            </div>   
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="vehicle">Rfid </label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="vehicle.rfid" name="rfid" autocomplete="off" placeholder="Enter RfID"  />
+                            </div>   
+                        </div>                  
+
+                        <div class="form-group m-b-0">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary width-xs">Submit</button>
+                            </div>
+                        </div>
+   				</form>
+                </div>
+
+</div></div>                
+
+        <div class="col-md-7">
+
+            <div class="panel panel-inverse">
+
+                <div class="panel-heading">
+
+                    <div class="panel-heading-btn">
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+
+                    <h4 class="panel-title">Vehicles List</h4>
+
+                </div>
+
+                <div class="panel-body">
+
+                   <div class="panel-body">
+					<div class="table-responsive">
+                   <div class="col-md-3 search1">
+                          <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search"  /><br />
+
+                       </div> 
+                    <table ng-table="tableParams"  class="table table-striped table-bordered nowrap" width="100%">
+
+                        <tbody>
+
+                            <tr ng-repeat="v in $data | filter:search ">
+
+                                <td data-title="'S.No'" sortable="'id'">{{v.id}}</td>
+
+                                <td data-title="'Vehicle Type'" sortable="'v.type'">{{v.vtype}}</td>
+
+                                <td data-title="'Brand Name'" sortable="'v.make'">{{v.make}}</td>
+
+                                <td data-title="'Reg NO '" sortable="'v.regNumber'">{{v.regNumber}}</td>
+                                <td data-title="'Flat-Block '" sortable="'v.flat_id.name'">{{v.flat_id.name}}-{{v.block_id.name}}</td>
+                                <td data-title="'Apartment '" sortable="'v.apt_id.name'">{{v.apt_id.name}}</td>                                 
+                                <td data-title="'Status'" sortable="'status'"><img src="assets/img/{{v.status}}.png" ng-click="statusVehicle(v.id);" > </td>
+
+                                <td data-title="'Edit'"><img src="assets/img/edit.png" ng-click="editVehicle(v.id);" > </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            </div> 
+
+           </div>
+
+        </div>
+
+    </div>
+
+</div>
+

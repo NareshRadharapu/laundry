@@ -1,0 +1,90 @@
+<div ng-controller="pageWithTopMenuController">
+
+
+</div>
+<div ng-controller="CityController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Cities</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Cities <small></small></h1>
+    <!-- end page-header -->
+    
+    <div class="row"  >
+        <div class="col-md-5">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Add / Modify City</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="panel-body">
+                        <form class="form-horizontal" name="validationForm" ng-submit="addCity()">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="city">City Name <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                <input type="hidden" class="form-control" ng-model="city.id" name="id" />
+                                <input type="text" autocomplete="off" class="form-control" ng-model="city.name" name="city" placeholder="Enter City Name" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="city">Code <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="city.code" name="code" placeholder="City Code (2 Letters)" required />
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <label class="control-label col-md-4"></label>
+                                <div class="col-md-6">
+                                 <button type="submit" class="btn btn-success width-xs" >Submit</button>
+                                </div>
+                            </div>
+                       </form>
+                    </div>
+                </div>
+			</div>
+		</div>
+		<div class="col-md-7">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Cities List</h4>
+                </div>
+
+                <div class="panel-body">
+                	<div class="table-responsive">
+                    <div class="col-md-3 search1">
+                          <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search"  /><br />
+                    </div> 
+                    <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                        <tbody>
+                            <tr ng-repeat="a in $data | filter:search" >
+                                <td data-title="'S.No'" sortable="'id'">{{a.id}}</td>
+                                <td data-title="'Name'" sortable="'name'">{{a.name}}</td>
+                                <td data-title="'Code'" sortable="'code'">{{a.code}}</td>
+                                
+                                <td data-title="'Status'" sortable="'status'">
+                               		<img src="assets/img/{{a.status}}.png" ng-click="statusCity(a.id);" > 
+                                </td>
+                                <td data-title="'Edit'">                              
+                                	<img src="assets/img/edit.png" ng-click="editCity(a.id);" > </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>  
+                </div> 
+        </div>
+            </div>
+    </div>
+</div>

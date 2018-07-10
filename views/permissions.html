@@ -1,0 +1,59 @@
+<div ng-controller="pageWithTopMenuController">
+
+
+</div>
+<div ng-controller="PermissionsController">
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Permissions</li>
+  </ol>
+  <!-- end breadcrumb -->
+  <!-- begin page-header -->
+  <h1 class="page-header">Permissions <small></small></h1>
+  <!-- end page-header -->
+
+  <div class="row"  >
+    <div class="col-md-12">
+    <div class="panel panel-inverse">
+      <div class="panel-heading">
+        <div class="panel-heading-btn">
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+        </div>
+        <h4 class="panel-title">Permissions List</h4>
+      </div>
+
+      <div class="panel-body">
+       <div class="table-responsive">
+          <form>
+            <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <th>S.No</th>
+                  <th>Label</th>
+                  <th>Roles</th>
+                </tr>
+                <tr ng-repeat="p in resources track by $index">
+                  <td>{{$index+1}}</td> 
+                  <td>{{p.label}} </td>
+                  <td>
+                    <span ng-repeat='r in p.proles track by $index ' style="padding-right: 30px;">
+                      <input type="checkbox" ng-model="r.selected" />{{r.name}} 
+                    </span> 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" ng-click="updatePermissionSet()">Submit</button>
+              
+            </div>
+          </form>
+        </div>
+     </div> 
+   </div>
+ </div>
+</div>
+</div>

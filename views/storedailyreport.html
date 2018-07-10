@@ -1,0 +1,180 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="StoreDailyReportController">
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Store Daily Closing Report</li>
+  </ol>
+  <!-- end breadcrumb --> 
+  <!-- begin page-header -->
+  <h1 class="page-header">Store Daily Closing Report <small></small></h1>
+  <!-- end page-header -->
+  <div class="row">
+    <div class="col-md-5" ng-hide="userRole == 'SUPER_ADMIN' || userRole == 'AREA_INCHARGE'  || userRole == 'COLLECTION_BOY'">
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+          </div>
+          <h4 class="panel-title">Store Daily Closing Report</h4>
+        </div>
+        <div class="panel-body">
+          <div class="panel-body">
+            <form class="form-horizontal" name="validationForm" ng-submit="storeClosingReport()">
+              <!-- <div class="form-group">
+                <label class="control-label col-md-4" for="report">Business <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="text" autocomplete="off" class="form-control" ng-model="report.business" name="business" placeholder="Enter Today's Business" required  readonly />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Cash <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.cash" name="cash" placeholder="Enter Cash Collection" required readonly />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Card <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.card" name="card" placeholder="Enter card Collection" required readonly />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Paytm <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.paytm" name="paytm" placeholder="Enter paytm Collection" required readonly />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Online <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.online" name="online" placeholder="Enter Online Collection" required readonly />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Cheque <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.cheque" name="cheque" placeholder="Enter cheque Collection" required readonly />
+                </div>
+              </div> -->
+              <div class="form-group">
+                <input type="hidden" name="storeId" ng-model="report.storeId">
+                <label class="control-label col-md-4" for="report">Press Man did <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                <input type="number" autocomplete="off" class="form-control" ng-model="report.ironDone" name="ironDone" placeholder="Enter press man did" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Tomarrow for Ironing <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.ironPending" name="ironPending" placeholder="Enter Tomarrow for Ironing" required />
+                </div>
+              </div>
+             <!--  <div class="form-group">
+                <label class="control-label col-md-4" for="report">Exp Deliveries </label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.expDeliveries" name="expDeliveries" placeholder="Enter exp Deliveries " readonly />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Deliveried <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="text" autocomplete="off" class="form-control" ng-model="report.deliveries" name="deliveries" placeholder="Enter Deliveries " required readonly/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Pickups <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="text" autocomplete="off" class="form-control" ng-model="report.pickups" name="pickups" placeholder="Enter Pickups " required  readonly />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Send to CU pcs <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="text" autocomplete="off" class="form-control" ng-model="report.stcu" name="stcu" placeholder="Enter STCU Pcs " required  readonly/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="report">Pending Send to CU pcs <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="number" autocomplete="off" class="form-control" ng-model="report.pstcu" name="pstcu" placeholder="Enter Pending STCU Pcs " required readonly/>
+                </div>
+              </div> -->
+              <div class="form-group m-b-0">
+                <label class="control-label col-md-4"></label>
+                <div class="col-md-6">
+                  <button type="submit" class="btn btn-success width-xs">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" ng-show="userRole == 'SUPER_ADMIN' || userRole == 'AREA_INCHARGE' || userRole == 'COLLECTION_BOY'">
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+          </div>
+          <h4 class="panel-title">Store Daily Closing Report</h4>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <div class="col-md-2">
+              <select class="form-control" name="zone" ng-model="zone">
+                  <option value="">Select Zone</option>
+                  <option value="1">Zone-1</option>
+                  <option value="2">Zone-2</option>
+                  <option value="3">Zone-3</option>
+              </select>
+          </div>
+          <div class="col-md-2">
+            <div class="input-group input-daterange">
+              <input type="text" class="form-control" name="date" ng-model="date" id="date" placeholder="Select Report date">
+              <span class="input-group-btn" ng-click="filterOrdersBydate()">
+                <button class="btn btn-primary" type="button"><i class="fa fa-filter" ></i></button>
+              </span> 
+            </div>
+          </div>
+            <div class="col-md-3 search1">
+              <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" ng-change="applyGlobalSearch()" />
+              <br /> {{$scope.closingReport}}
+            </div>
+            <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+              <tbody>
+                <tr ng-repeat="r in $data | filter:search">
+                  <td data-title="'S.No'">{{$index+1}}</td>
+                  <td data-title="'Zone'" sortable="'zone'">Zone-{{r.zone}}</td>
+                  <td data-title="'Store'" sortable="'store'">{{r.store}}</td>
+                  <td data-title="'Business'" sortable="'business'">{{r.business}}</td>
+                  <td data-title="'Cash'" sortable="'cash'">{{r.cash}}</td>
+                  <td data-title="'Card'" sortable="'card'">{{r.card}}</td>
+                  <td data-title="'Paytm'" sortable="'paytm'">{{r.paytm}}</td>
+                  <td data-title="'Online'" sortable="'online'">{{r.online}}</td>
+                  <td data-title="'Cheque'" sortable="'cheque'">{{r.cheque}}</td>
+                  <td data-title="'IronDone'" sortable="'ironDone'">{{r.ironDone}}</td>
+                  <td data-title="'IronPen'" sortable="'ironPending'">{{r.ironPending}}</td>
+                  <td data-title="'ExpDel'" sortable="'expDeliveries'">{{r.expDeliveries}}</td>
+                  <td data-title="'PenDel'" sortable="'penDel'">{{r.penDel}}</td>
+                  <td data-title="'CUPA'" sortable="'cupa'">{{r.cupa}}</td>
+                  <td data-title="'Delivered'" sortable="'deliveries'">{{r.deliveries}}</td>
+                  <td data-title="'Pickups'" sortable="'pickups'">{{r.pickups}}</td>
+                  <td data-title="'ActPickups'" sortable="'actPickups'">{{r.actPickups}}</td>
+                  <td data-title="'STCU(Pcs)'" sortable="'stcu'">{{r.stcu}}</td>
+                  <td data-title="'PSTCU(Pcs)'" sortable="'pstcu'">{{r.pstcu}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-primary" type="button" ng-click="sendReportEmail();" >Send Mail</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

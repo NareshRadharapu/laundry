@@ -1,0 +1,124 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="ApartmentController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Apartments</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Apartments <small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Add / Modify Apartment</h4>
+                </div>
+                <div class="panel-body">
+                  <form class="form-horizontal" name="validationForm" ng-submit="addApartment();">
+                        <div class="form-group">
+                    <label class="col-md-4 control-label">Select Area <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="apartment.area" required>
+                                  <option value="">Select Area</option>
+                                 <option ng-repeat="a in areas" value="{{a.id}}" ng-selected="a.id==apartment.area">{{a.name}}</option>  
+                              </select>
+                           </div>
+                    </div>
+                         <div class="form-group">
+                    <label class="col-md-4 control-label">Select Catalog <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="apartment.catalog" required>
+                                  <option value="">Select Catalog</option>
+                                <option ng-repeat="c in catalogs" value="{{c.id}}" ng-selected="c.id==apartment.catalog">{{c.name}}</option>  
+                              </select>
+                           </div>
+                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="fullname">Apartment Name <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="apartment.name" autocomplete="off" name="name" placeholder="Enter Apartment Name" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="code">Code <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="text"  class="form-control" placeholder="Enter Apt Code" ng-model="apartment.code">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="address">Address <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" placeholder="Enter Address" ng-model="apartment.address" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="landmark">Landmark <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Enter Landmark" ng-model="apartment.landmark">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="pincode">Pincode <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="number" autocomplete="off" class="form-control" ng-model="apartment.pincode" name="pincode" placeholder="Enter Pincode" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="mobile">Mobile <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <input type="number" autocomplete="off" class="form-control" ng-model="apartment.mobile" name="mobile" placeholder="Enter Mobile Number" required />
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-success width-xs">Submit</button>
+                            </div>
+                        </div>
+              </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Apartments List</h4>
+                </div>
+                <div class="panel-body">
+          <div class="table-responsive">
+          <div class="col-md-3 search1">
+                          <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search"  /><br />
+                    </div>
+                    <table ng-table="tableParams"  class="table table-striped table-bordered nowrap" width="100%">
+                        <tbody>
+                            <tr ng-repeat="a in $data | filter:search">
+                                <td data-title="'S.No'" sortable="'id'">{{a.id}}</td>
+                                <td data-title="'Apartment Name'" sortable="'name'">{{a.name}}</td>
+                                <td data-title="'Address'" sortable="'address'">{{a.address}}</td>
+                                <td data-title="'Area Name'" sortable="'area_id.name'">{{a.area_id.name}}</td>
+                                <td data-title="'Pincode'" sortable="'pincode'">{{a.pincode}}</td>
+                                <td data-title="'Status'" sortable="'status'"><img src="assets/img/{{a.status}}.png" ng-click="statusApartment(a.id);" > </td>
+                                <td data-title="'Edit'"><img src="assets/img/edit.png" ng-click="editApartment(a.id);" > </td>
+                            </tr>
+                        </tbody>
+                    </table>
+          </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+  

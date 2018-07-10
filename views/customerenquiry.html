@@ -1,0 +1,368 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="customerEnquiryController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Customer Enquiry</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Customer Enquiry <small></small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-4">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Customer Enquiry</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <form class="form-horizontal" method="post" ng-submit="checkExist()">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="takeorder">Mobile Number</label>
+                                <div class="col-md-6">
+                                    <input type="text" autocomplete="off" class="form-control" ng-model="customer.mobile" name="mobile" placeholder="Enter Mobile Number" />
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <label class="control-label col-md-4"></label>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary width-xs">Check</button>
+                                </div>
+                            </div>
+                            <p>&nbsp;</p>
+                            <div class="form-group m-b-0">
+                                <label class="control-label col-md-4"></label>
+                                <div class="col-md-6" ng-show="customerNotFound">
+                                    <a href="#/app/customerUsers" class="btn btn-primary width-xs">Register Customer</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-8" ng-show="customerNotFound">
+  <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+    <div class="panel-heading">
+      <div class="panel-heading-btn">
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+      </div>
+      <h4 class="panel-title">Customer Registration </h4>
+    </div>
+    <div class="panel-body panel-form">
+      <div class="col-md-12 p-40">        
+        <div class="col-md-6">
+          <label ng-hide="customer.customerId" class="control-label col-md-5" for="takeorder">
+            <a href="#/app/customerUsers" class="btn btn-primary width-xs">Register Customer</a>
+          </label>          
+        </div>
+        <div class="col-md-6 text-center">    
+          <label ng-hide="customer.customerId" class="control-label col-md-5" for="takeorder">
+            <a href="#" class="btn btn-primary width-xs">Reg Apartment User</a>
+             <a href="#/app/customerApartments" class="btn btn-primary width-xs">Reg Apartment User</a> 
+          </label>
+        </div> 
+      </div> 
+      <p>&nbsp;</p> 
+    </div>
+  </div>
+        </div> -->
+        <div class="col-md-8" ng-show="customerFound">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Customer Details</h4>
+                </div>
+                <div class="panel-body panel-form">
+                    <div class="form-horizontal form-bordered col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Name</div>
+                            <div class="col-md-8">{{customer.firstname}} {{customer.lastname}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Mobile Number</div>
+                            <div class="col-md-8">{{customer.mobile}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Discount</div>
+                            <div class="col-md-8" style="color:red;font-weight: bolder;">
+                                <span ng-show="customer.defaultDiscount>=0">D - {{customer.defaultDiscount}}%</span>
+                                <span ng-show="customer.vendorDiscount>=0">V - {{customer.vendorDiscount}}%</span>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <div class="col-md-4 text-right">Email Id</div>
+                            <div class="col-md-8">{{customer.email}}</div>
+                        </div> -->
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Store Name</div>
+                            <div class="col-md-8">{{customer.areaName}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Address</div>
+                            <div class="col-md-8">{{customer.address}} {{customer.landmark}} {{customer.areaName}} {{customer.pincode}}</div>
+                        </div>
+                        <div class="form-group m-b-0"> </div>
+                    </div>
+                    <div class="form-horizontal form-bordered col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Date Of Joining</div>
+                            <div class="col-md-8">{{customer.dateofJoin.date}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Starch Default</div>
+                            <div class="col-md-8">
+                                <i class="fa fa-check" aria-hidden="true" style="color:green;" ng-show="customer.defaultStarch == true"></i>
+                                <i class="fa fa-times" aria-hidden="true" style="color:red;" ng-show="customer.defaultStarch == false"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Perfume Spray</div>
+                            <div class="col-md-8">
+                                <i class="fa fa-check" aria-hidden="true" style="color:green;" ng-show="customer.perfumeSpray == true"></i>
+                                <i class="fa fa-times" aria-hidden="true" style="color:red;" ng-show="customer.perfumeSpray == false"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Flag</div>
+                            <div class="col-md-8">
+                                <i class="fa fa-flag" aria-hidden="true" style="color:red;" ng-show="customer.problematic == true"></i>
+                                <i class="fa fa-flag" aria-hidden="true" style="color:green;" ng-show="customer.problematic == false"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Wallet</div>
+                            <div class="col-md-4">{{customer.wallet}}</div>
+                        </div>
+                        <div class="form-group m-b-0"> </div>
+                    </div>
+                    <p> &nbsp; </p>
+                    <div class="col-md-12">
+                        <div class="form-group m-b-0">
+                            <div class="col-md-4 text-center" ng-show="customer.address">
+                                <a ng-show="customer.id" href="#/app/placeorder/id/{{customer.id}}" class="btn btn-primary width-xs">Place Order</a>
+                            </div>
+                            <div class="col-md-4 text-center" ng-hide="customer.address">
+                                <button class="btn btn-primary width-xs" ng-click="customerToggle()">Edit Customer </button>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <a ng-show="customer.id" href="#" ng-click="toggle(customer.id)" class="btn btn-primary width-xs">Request Order</a>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <a ng-show="customer.id" href="#/app/individualuserorders/id/{{customer.id}}" class="btn btn-primary width-xs">View Orders</a>
+                            </div>
+                        </div>
+                        <p> &nbsp; </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="customerFound">
+        <div class="col-md-4">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Customer Details</h4>
+                </div>
+                <div class="panel-body panel-form">
+                    <div class="form-horizontal form-bordered">
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Min Order Amt</div>
+                            <div class="col-md-8"> {{customer.minOrderValue}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Max Order Amt</div>
+                            <div class="col-md-8">{{customer.maxOrderValue}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Avg Order Amt</div>
+                            <div class="col-md-8">{{customer.avgOrderValue}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Total Order Amt</div>
+                            <div class="col-md-8">{{customer.totalOrderValue}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Discount Orders Amt</div>
+                            <div class="col-md-4">{{customer.discountOrderValue}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Total Ordres </div>
+                            <div class="col-md-8">{{customer.totalOrders}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Avg Processing Delay </div>
+                            <div class="col-md-4">{{customer.avarageProcessingDelay}}</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 text-right">Order Frequence in Days </div>
+                            <div class="col-md-4">{{customer.orderFrequence}}</div>
+                        </div>
+                        <div class="form-group m-b-0"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Service Wise Revenue</h4>
+                </div>
+                <div class="panel-body panel-form">
+                    <div class="form-horizontal form-bordered">
+                        <div ng-repeat="(k, v) in customer.serviceWiseRevenue track by $index">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right" ng-class-odd="'bf-info'" ng-class-even="'bg-warning'">{{k}}</div>
+                                <div class="col-md-8" ng-class-odd="'bf-info'" ng-class-even="'bg-warning'"> {{v}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Service Wise Items</h4>
+                </div>
+                <div class="panel-body panel-form">
+                    <div class="form-horizontal form-bordered">
+                                <span ng-repeat="(k, v) in customer.serviceWiseItems">
+                                    <div class="form-group">
+                                <div class="col-md-6 text-right" ng-class-odd="'bf-info'" ng-class-even="'bg-warning'">{{k}}</div>
+                                    <div class="col-md-6"  ng-class-odd="'bf-info'" ng-class-even="'bg-warning'" > {{v}}</div>
+                                </div>
+                            </span>
+                        <div class="form-group m-b-0"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <modal title="Customer Request" visible="cRequest">
+        <form role="form" ng-submit="makeRequest()" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="city">Request Day
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-6 input-group date" id="datetimepicker1">
+                    <input type="text" class="form-control" id="requestDateTime" ng-model="customer.requestDateTime" name="requestDateTime" data-behavior="datepicker" />
+                    <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="city">Request Slot
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-6">
+                    <select class="form-control" ng-model="customer.slot" name="slot" id="slot">
+                        <option value="9AM-12PM">Slot 1(9AM - 12PM)</option>
+                        <option value="12PM-3PM">Slot 2(12PM - 3PM)</option>
+                        <option value="3PM-6PM">Slot 3(3PM - 6PM)</option>
+                        <option value="6PM-9PM">Slot 4(6PM - 9PM)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4"></label>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </modal>
+    <!-- end row -->
+    <modal title="Customer Update" visible="customerToggleFlag">
+        <form class="form-horizontal" name="validationForm" ng-submit="addCustomer()">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="customers">First Name <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                    <input type="text" autocomplete="off" class="form-control" ng-model="customer.firstname" name="firstname" placeholder="Enter First Name" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="customer">Last Name </label>
+                <div class="col-md-6">
+                    <input type="text" autocomplete="off" class="form-control" ng-model="customer.lastname" name="lastname" placeholder="Enter Last Name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="customer">Email </label>
+                <div class="col-md-6">
+                    <input readonly="readonly" type="email" autocomplete="off" class="form-control" ng-model="customer.email" name="email" placeholder="Enter Email" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="customer">Mobile <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                    <input readonly="readonly" type="tel" autocomplete="off" class="form-control" ng-model="customer.mobile" name="mobile" placeholder="Enter Mobile Number" ng-pattern="/^[0-9]{10}$/" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Store Location <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                    <select class="form-control" ng-model="customer.area" name="area" required readonly="readonly" ng-options="a.id as a.name for a in areasList">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="customer">Address <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                    <textarea class="form-control" ng-model="customer.address" name="address" placeholder="Enter Address" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="customer">Landmark </label>
+                <div class="col-md-6">
+                    <input type="text" autocomplete="off" class="form-control" ng-model="customer.landmark" name="landmark" placeholder="Enter Landmark" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="customer">Pincode</label>
+                <div class="col-md-6">
+                    <input type="text" autocomplete="off" class="form-control" ng-model="customer.pincode" name="pincode" placeholder="pincode" />
+                </div>
+            </div>
+            <div class="form-group m-b-0">
+                <label class="control-label col-md-4"></label>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary width-xs" ng-disabled="!validationForm.$valid">Submit</button>
+                </div>
+            </div>
+        </form>
+    </modal>
+</div>

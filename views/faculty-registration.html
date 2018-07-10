@@ -1,0 +1,182 @@
+<div ng-controller="pageWithTopMenuController">
+
+</div>
+
+<div ng-controller="FacultyController">
+
+    <!-- begin breadcrumb -->
+
+    <ol class="breadcrumb pull-right">
+
+        <li><a href="javascript:;">Home</a></li>
+
+        <li class="active">Customers List</li>
+
+    </ol>
+
+    <!-- end breadcrumb -->
+
+    <!-- begin page-header -->
+
+    <h1 class="page-header">Faculty Lists<small></small></h1>
+
+    <!-- end page-header -->
+
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <div class="panel panel-inverse">
+
+                <div class="panel-heading">
+
+                    <div class="panel-heading-btn">
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+
+                    <h4 class="panel-title">Add / Modify Faculty</h4>
+
+                </div>
+
+                <div class="panel-body">
+
+                <form class="form-horizontal" name="validationForm" ng-submit="addFaculty()" >  
+                    <div class="form-group">
+                       <label class="col-md-4 control-label">Select  Apartment <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <select class="form-control" ng-model="faculty.apartment" name="apartment" required>
+                            	<option value="">Select Apartment</option>
+                                <option ng-repeat="apt in apartments" value="{{apt.id}}" ng-selected="apt.id==faculty.apartment" >{{apt.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" >
+                       <label class="col-md-4 control-label">Role <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+       <select class="form-control" ng-model="faculty.role" name="role" required ng-options="froles as fr for fr in froles" >
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                    	<label class="control-label col-md-4" for="facultys">First Name <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" autocomplete="off" class="form-control" ng-model="faculty.firstname" name="firstname" placeholder="Enter First Name" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="control-label col-md-4" for="faculty">Last Name <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" autocomplete="off" class="form-control" ng-model="faculty.lastname" name="lastname" placeholder="Enter Last Name" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="control-label col-md-4" for="faculty">Email <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="email" autocomplete="off" class="form-control" ng-model="faculty.email" name="email" placeholder="Enter Email" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="control-label col-md-4" for="faculty">Mobile <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" autocomplete="off" class="form-control" ng-model="faculty.mobile" name="mobile" placeholder="Enter Mobile Number" required />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group m-b-0">
+                        <label class="control-label col-md-4"></label>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary width-xs">Submit</button>
+
+                        </div>
+
+                    </div>
+
+   				</form>
+
+                </div>
+
+             </div>
+
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="panel panel-inverse">
+
+                <div class="panel-heading">
+
+                    <div class="panel-heading-btn">
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+
+                    <h4 class="panel-title">Faculties List</h4>
+
+                </div>
+
+                <div class="panel-body">
+                	<div class="table-responsive">
+                    <div class="col-md-3 search1">
+
+                          <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search"  /><br />
+
+                       </div> 
+
+                    <table ng-table="tableParams" class="table table-condensed table-bordered table-striped" width="100%">
+
+                        <tbody>
+
+                            <tr ng-repeat="c in $data | filter:search" > 
+
+                                <td data-title="'S.No'" sortable="'id'">{{c.id}}</td>
+
+                                <td data-title="'Apartment'" sortable="'apt_id.name'">{{c.apt_id.name}}</td>
+                               
+                                <td data-title="'First Name'" sortable="'firstname'">{{c.firstname}}</td>
+
+                                <td data-title="'Last Name'" sortable="'lastname'">{{c.lastname}}</td>
+
+                                <td data-title="'Email'" sortable="'email'">{{c.email}}</td>
+                                
+                                 <td data-title="'Designation'" sortable="'email'">{{c.designation}}</td>
+
+                                <td data-title="'Mobile'" sortable="'mobile'">{{c.mobile}}</td>
+
+                                <td data-title="'status'" sortable="'status'"><img src="assets/img/{{c.status}}.png" ng-click="statusFaculty(c.id);" > </td>
+
+                                <td data-title="'Edit'"><img src="assets/img/edit.png" ng-click="editFaculty(c.id);" > </td>                                
+
+                            </tr>
+
+                            
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div> 
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

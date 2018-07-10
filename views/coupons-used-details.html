@@ -1,0 +1,61 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="couponsUsedController">
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active"> Used Coupons List </li>
+  </ol>
+  <!-- end breadcrumb -->
+  <!-- begin page-header -->
+  <h1 class="page-header"> Used Coupons List <small></small></h1>
+  <!-- end page-header -->
+  <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-inverse">
+          <div class="panel-heading">
+            <div class="panel-heading-btn">
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+            </div>
+            <h4 class="panel-title">Used Coupons List</h4>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <div class="col-md-4">
+              <div class="input-group input-daterange">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                </span>
+                <input type="text" class="form-control" id="datepicker-default-from" placeholder="Select Date From" ng-model="fromDateSelected" />
+                <span class="input-group-addon"> To </span>
+                <input type="text" class="form-control" id="datepicker-default-to" placeholder="Select Date To" ng-model="dateSelected" />
+                <span class="input-group-btn" ng-click="filterOrdersBydate()">
+                  <button class="btn btn-primary" type="button"><i class="fa fa-filter" ></i></button>
+                </span>
+              </div>
+            </div>
+              <div class="col-md-3 search1">
+                <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" /> 
+                <br />
+              </div>
+              <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                <tbody>
+                  <tr ng-repeat="(k,a) in couponDetails">
+                    <td data-title="'S.No'">{{$index+1}}</td>
+                    <td data-title="'Store'">{{k}}</td>
+                    <td data-title="'Coupon Details'">
+                      <span ng-repeat="(q,b) in a">
+                        <span>{{q}} - {{b}} </span><br>                        
+                      </span> 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

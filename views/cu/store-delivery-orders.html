@@ -1,0 +1,76 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="StoresDeliveryOrdersController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Stores Delivery Orders List</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Stores Delivery Orders List <small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Stores Delivery Orders List</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div class="col-md-12">
+                        <div class="col-md-2">
+                              <select class="form-control selectpicker" data-size="10" data-live-search="true" data-style="btn-inverse" ng-model="storeId" name="storeId">
+                                <option value=""> -- Select Store -- </option>
+                                <option ng-repeat="a in areasList" value="{{a.id}}" ng-selected="a.id==storeId">{{a.name}} </option> 
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group input-daterange">
+                                <input type="text" class="form-control" name="dDate" ng-model="dDate" id="dDate" placeholder="Select Delivery date">
+                                <span class="input-group-btn" ng-click="filterOrdersBydate()">
+                                    <button class="btn btn-primary" type="button"><i class="fa fa-filter" ></i></button>
+                                </span> 
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <strong class="form-control no-border"> Total Items Count: {{totalItemCount}} </strong>
+                        </div>
+                        <div class="col-md-2 search1">
+                            <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" ng-change="applyGlobalSearch()" />
+                            <br />
+                        </div>
+                        <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                            <tbody>
+                                <tr ng-repeat="sdo in $data track by $index">
+                                    <td data-title="'S.No'" ng-bind="{{$index+1}}"></td>
+                                    <td data-title="'ReceiptNo'"> {{sdo.receiptNo}}</td>
+                                    <td data-title="'Cust Name'" >{{sdo.firstname}} {{sdo.lastname}}</td>
+                                    <!-- <td>{{sdo.mobile}}</td> -->
+                                    <td data-title="'OrderId'">
+                                      <a href="#central-unit/order-details-only/{{sdo.orderId}}" target="_blank">{{sdo.orderId}}</a>
+                                    </td>
+                                    <td data-title="'Store'">{{sdo.store}}</td>
+                                    <td data-title="'OrdDate'">{{sdo.orderDate  | date : 'MMM dd, yyyy'}}</td>
+                                    <td data-title="'DeliveryDate'">{{sdo.deliveryDate}}</td>
+                                    <td data-title="'ICount'">{{sdo.totalItems}}</td>
+                                    <td data-title="'Details'">
+                                        <li ng-repeat="d in sdo.detailsObj">{{d}}
+                                        </li>
+                                    </td>
+                                    <td data-title="'Status'">{{sdo.poStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                   </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

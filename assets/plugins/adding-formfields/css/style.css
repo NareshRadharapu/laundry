@@ -1,0 +1,46 @@
+
+fieldset{
+    padding: 16px;
+}
+.addfields{
+    margin: 10px 0;
+}
+
+#choicesDisplay {
+    padding: 10px;
+    background: rgb(227, 250, 227);
+    border: 1px solid rgb(171, 239, 171);
+    color: rgb(9, 56, 9);
+}
+.remove{
+    background: #FF0000;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 24px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    padding: 2px 9px;
+    vertical-align: middle;
+    line-height: 100%;   
+}
+.add{
+    background: #008a8a;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 24px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    padding: 4px 9px;
+    vertical-align: middle;
+    line-height: 100%;   
+}
+.addrow{
+    padding:6px;
+	margin:5px;
+	border:1px solid #ccd0d4;
+	border-radius:4px;
+	width:80px;
+	
+}

@@ -1,0 +1,60 @@
+.true{background:url(img/status_on.png); background-repeat:no-repeat; width:37px; height:22px; text-align: -webkit-center;}
+.false{background:url(img/status_off.png);background-repeat:no-repeat; width:37px; height:22px; text-align: -webkit-center;}
+.strong{
+  font-weight: bold !important;
+}
+.color_00{
+  color: #000 !important;
+}
+.panel-title{
+  font-size: 15px;
+  font-family: sans-serif;
+}
+.icon-20px{
+  font-size: 16px !important;
+}
+.margin_top{
+  margin-top: 10px !important;
+}
+.disabled{
+pointer-events: none;
+color: #aaa;
+}
+.printlbl{
+  width:50%;
+  border-radius:0; 
+  border:1px solid #ccc;
+  padding:5px; 
+  margin:-1px 0px 0px -4px;
+}
+.remove{
+  background: #f00;
+  color: #fff;
+  border: none;
+  width: 20px;
+  border-radius: 3px;
+}
+.addfields{
+  background: #ccc;
+  color: #fff;
+  border: none;
+  width: 20px;
+  border-radius: 3px;
+}
+.frm-bdr{
+  padding: 0;
+  border: 0.5px solid #eee;
+}
+/* Automatic Serial Number Row */
+
+.css-serial {
+    counter-reset: serial-number !important;
+    /* Set the serial number counter to 0 */
+}
+
+.css-serial td:first-child:before {
+    counter-increment: serial-number !important;
+    /* Increment the serial number counter */
+    content: counter(serial-number) !important;
+    /* Display the counter */
+}

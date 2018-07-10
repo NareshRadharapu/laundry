@@ -1,0 +1,71 @@
+<div class="login login-with-news-feed" ng-controller="loginController">
+    <!-- begin news-feed -->
+    <div class="news-feed">
+        <div class="news-image">
+            <img src="assets/img/login-bg/bg-7.jpg" data-id="login-cover-image" alt="" />
+        </div>
+        <div class="news-caption">
+            <h4 class="caption-title">
+            <a href="#/super-login"><i class="fa fa-diamond text-success"></i></a>
+             Great achievements always need a hardwork</h4>
+            <p style="margin-left:40px">
+                Faith... it makes things possible, not easy
+            </p>
+        </div>
+    </div>
+    <!-- end news-feed -->
+    <!-- begin right-content -->
+    <div class="right-content">
+        <!-- begin login-header -->
+        <div class="login-header">
+            <div class="brand">
+                <span class="logo"></span> Laundry Waves
+            </div>
+            <div class="icon">
+                <i class="fa fa-sign-in"></i>
+            </div>
+        </div>
+        <!-- end login-header -->
+        <!-- begin login-content -->
+        <div class="login-content">
+            <form method="POST" class="margin-bottom-0" name="amsLogin" ng-submit="login(amsLogin,user)" novalidate>
+          <!-- <div class="form-group m-b-15">
+                  <input list="stores" class="form-control input-lg" placeholder="Select Store" ng-model="user.storeId" name="storeId" required autofocus="">
+                  <datalist id="stores">
+                    <option ng-repeat="a in areasList" value="{{a.id}}" ng-selected="a.id==storeId">{{a.name}}</option>
+                  </datalist>
+                </div> -->
+                <div class="form-group m-b-15">
+                    <select class="form-control input-lg" data-size="10" data-live-search="true" data-style="btn-inverse" ng-model="user.storeId" name="storeId" required autofocus="autofocus">
+                        <option value="" ng-disabled="true"> Select Store </option>
+                        <option ng-repeat="a in areasList" value="{{a.id}}" ng-selected="a.id==storeId">{{a.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group m-b-15">
+                    <input type="tel" name="mobile" ng-model="user.mobile" class="form-control input-lg" autocomplete="off" required placeholder="Enter Mobile Number" />
+                    <p ng-show="amsLogin.mobile.$error.required && !amsLogin.email.$pristine" class="error"> Enter Valid Mobile Number </p>
+                    <p ng-show="amsLogin.mobile.$error.mobile && !amsLogin.mobile.$pristine" class="error">Enter Valid Mobile Number</p>
+                </div>
+                <div class="form-group m-b-15">
+                    <input type="password" name="password" ng-model="user.password" class="form-control input-lg" placeholder="Enter Password" required />
+                    <p ng-show="amsLogin.password.$error.required && !amsLogin.password.$pristine" class="error"> Enter Valid Password </p>
+                </div>
+                <div class="checkbox m-b-30">
+                    <label>
+                        <input type="checkbox" /> Remember Me
+                    </label>
+                </div>
+                <div class="login-buttons">
+                    <button type="submit" ng-disabled="amsLogin.$invalid" class="btn btn-success btn-block btn-lg">Login</button>
+                </div>
+                <hr />
+                <p class="text-center text-inverse">
+                    &copy; Laundry Waves All Right Reserved 2018
+                </p>
+            </form>
+        </div>
+        <!-- end login-content -->
+    </div>
+    <!-- end right-container -->
+</div>
+<!-- end login

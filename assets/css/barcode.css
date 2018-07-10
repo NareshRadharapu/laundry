@@ -1,0 +1,51 @@
+.barcodeImage{
+  display:block;
+}
+.barcodeImage img{
+  width: 100% !important;
+  height: 65px !important;
+  border:0px none !important; 
+}
+.bar-code-generated-div {
+    page-break-inside: avoid;
+    width:130px;
+    text-align:center;
+    margin:0px auto;
+    margin-bottom:15px;
+    font-size: 14px !important;
+    border:2px solid #000;
+}
+.bar-code-text-div{
+  display:block;
+  font-size: 14px !important;
+}
+.bar-code-text-div p{
+  margin:0px;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+
+}
+
+
+@media print {
+  body{
+    margin:0px;
+    padding:0px;
+  }
+  #printableArea {
+    position: relative;
+    overflow: auto;
+    left: 0;
+    top: 0;
+    bottom: 0
+    right:0;
+    margin:0px;
+   /* padding: 8px;*/
+
+
+
+  }
+  #printableArea .bar-code-generated-div{
+    border:2px solid #000;
+  }
+}  

@@ -1,0 +1,227 @@
+<div ng-controller="pageWithTopMenuController">
+
+</div>
+
+<div ng-controller="SearchResultsController">
+
+    <!-- begin breadcrumb -->
+
+    <ol class="breadcrumb pull-right">
+
+        <li><a href="javascript:;">Home</a></li>
+
+        <li class="active">Search Results</li>
+
+    </ol>
+
+    <!-- end breadcrumb -->
+
+    <!-- begin page-header -->
+
+    <h1 class="page-header">Search Results<small></small></h1>
+
+    <!-- end page-header -->
+
+    <!-- begin row -->
+
+    <!-- begin row -->
+
+    <div class="row">
+
+        <!-- begin col-6 -->
+
+        <div class="col-md-6">
+
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+
+                <div class="panel-heading">
+
+                    <div class="panel-heading-btn">
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+
+                    <h4 class="panel-title"> Results</h4>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <table class="table table-hover table-condensed table-bordered table-striped" ng-show="searchResults.result.customers.length>0">
+
+                        <h4 ng-show="searchResults.result.customers.length > 0">Customers</h4>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Name</th>
+
+                                <th>Mobile</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr ng-repeat="c in searchResults.result.customers">
+
+                                <td> <a href="#/app/individualuserorders/id/{{c.customerId}}"> {{c.name}} </a> </td>
+
+                                <td> <a href="#/app/individualuserorders/id/{{c.customerId}}"> {{c.mobile}} </a> </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <table class="table table-hover table-condensed table-bordered table-striped" ng-show="searchResults.result.orders.length > 0">
+
+                        <h4 ng-show="searchResults.result.orders.length > 0">Orders</h4>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>OrderId</th>
+
+                                <th>Order Balance</th>
+
+                                <th>Customer Name</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody ng-repeat="o in searchResults.result.orders">
+
+                            <tr>
+
+                                <td> <a href="#app/order-details-only/{{o.orderId}}"> {{o.orderId}}</a></td>
+
+                                <td ng-hide="o.balanceAmount==0.00">
+
+                                    <a href="#" ng-click="toggleModal(o.oid, o.wallet, o.balanceAmount)" data-orderid="{{o.orderId}}"> {{o.balanceAmount}}</a>
+
+                                </td>
+
+                                <td ng-hide="o.balanceAmount!=0.00"> {{o.balanceAmount}}</td>
+
+                                <td> <a href="#/app/individualuserorders/id/{{o.customerId}}"> {{o.customerName}}</a> </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <table class="table table-hover table-condensed table-bordered table-striped" ng-show="searchResults.result.orderItems.length > 0">
+
+                        <h4 ng-show="searchResults.result.orderItems.length > 0">Order Items</h4>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Item Name</th>
+
+                                <th>OrderId</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody ng-repeat="oi in searchResults.result.orderItems">
+
+                            <tr>
+
+                                <td> {{oi.name}} </td>
+
+                                <td> <a href="#app/order-details-only/{{oi.orderId}}"> {{oi.orderId}}</a></td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <div ng-show="searchKey && searchResults.result.customers.length == 0 && searchResults.result.orders.length == 0 && searchResults.result.orderItems.length == 0">No Results found</div>
+
+                </div>
+
+                <modal title="Make Payment" visible="showModal">
+                    <div class="text-center" >
+                        <h4>Wallet Amount : {{payment.wallet}} </h4>
+                    </div>
+                    <form role="form" ng-submit="makePayment()" class="form-horizontal">
+                        <div class="form-group">
+                            <label for="balanceAmount" class="col-sm-4 control-label">Balance Amount</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly ng-model="payment.balanceAmount" class="form-control" id="balance-amount" placeholder="balance amount" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="payingAmount" class="col-sm-4 control-label">Enter Amount</label>
+                            <div class="col-sm-8">
+                                 <input type="number" autocomplete="off" ng-model="payment.payingAmount" required class="form-control currency" id="paying-amount" placeholder="enter amount" min="0" /> 
+                                 <!-- <input type="number" autocomplete="off" ng-model="payment.payingAmount" required class="form-control currency" id="paying-amount" placeholder="enter amount" min="0.00" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"/> -->
+                                <!-- <input type="text" autocomplete="off" ng-model="payment.payingAmount" required class="form-control" id="paying-amount" max="{{payment.totalAmount-
+                    payment.balanceAmount}}" placeholder="enter amount" /> -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentType" class="col-sm-4 control-label">Payment Type</label>
+                            <div class="col-sm-8">
+                                <select ng-model="payment.paymentType" required class="form-control" id="paymentType">
+                                    <option value="Cash">Cash</option>
+                                    <option value="PayTM">PayTM</option>
+                                    <option value="CreditCard">CreditCard</option>
+                                    <option value="DebitCard">DebitCard</option>
+                                    <option value="OnlineTransfer">OnlineTransfer</option> 
+                                    <option value="Cheque">Cheque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="transactionNumber" class="col-sm-4 control-label">
+                                Transaction Number
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" autocomplete="off" ng-model="payment.transactionNumber" required ng-disabled="payment.paymentType === 'Cash'" class="form-control" id="transactionNumber" max="{{payment.transactionNumber}}" placeholder="Transaction Number" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentFeedback" class="col-sm-4 control-label">
+                                Payment Feedback
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" autocomplete="off" ng-model="payment.paymentFeedback" class="form-control" id="paymentFeedback" max="{{payment.paymentFeedback}}" placeholder=" Payment Feedback" />
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary" 
+                                    ng-class="{'disabled':(payment.walletAmount == 0) && (payment.payingAmount>payment.balanceAmount)}">Submit</button>
+                                <!-- <button type="submit" class="btn btn-primary" ng-disabled="payment.walletAmount == 0 || payment.payingAmount == 0">Submit</button> -->
+                                <!-- <button type="submit" class="btn btn-primary" ng-disabled="( payment.payingAmount == 0) && (payment.walletAmount == 0)">Submit</button> -->
+                            </div>
+                        </div>
+                    </form>
+                </modal>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

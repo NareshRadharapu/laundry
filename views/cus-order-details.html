@@ -1,0 +1,185 @@
+<div ng-controller="pageWithTopMenuController">
+
+</div>
+
+<div ng-controller="CUOrderDetailsController">
+
+  <!-- begin breadcrumb -->
+
+  <ol class="breadcrumb pull-right">
+
+    <li><a href="javascript:;">Home</a></li>
+
+    <li class="active">Central Unit Order Details</li>
+
+  </ol>
+
+  <!-- end breadcrumb -->
+
+  <!-- begin page-header -->
+
+  <h1 class="page-header">Central Unit Order Details<small></small></h1>
+
+  <!-- end page-header -->
+
+  <div class="row">
+
+    <!-- begin col-6 -->
+
+    <div class="col-md-12 CUprintSection">
+
+      <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+
+        <div class="panel-heading" id="printshow">
+
+          <div class="panel-heading-btn">
+
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+          </div>
+
+          <h4 class="panel-title">Central Unit Order Details</h4>
+
+        </div>
+
+        <div class="panel-body">    
+
+         <h4 class="text-center">{{cuOrderDetails.storeName}} Central Unit Order Details</h4> 
+
+         <div class="table-responsive">
+
+          <div class="col-md-12" style="padding:0 0 0px 0;">
+
+            <label class="col-md-3" style="padding:0;">
+
+              <b>OrdeerId:</b> {{cuOrderDetails.orderId}} &nbsp;
+
+            </label>
+
+            <label class="col-md-3" style="padding:0;">
+
+              <b>Total Order Items:</b> {{cuOrderDetails.totalItemsCount}} &nbsp;
+
+            </label>
+
+            <label style="padding:0;">
+
+              <b>Pickupboy:</b> {{cuOrderDetails.pickupBoy}}
+
+            </label>
+
+          </div>
+
+          <div class="col-md-12" style="padding:0 0 10px 5px;">
+
+            <h5><b>Total Order Details:</b></h5>
+
+            <span ng-repeat="(k,v) in cuOrderDetails.itemDetails">
+
+              <label style="width:50%;border-radius:0; border:1px solid #ccc;padding:5px; margin:-1px 0px 0px -4px;">
+
+               {{k}} : {{v}}
+
+             </label>     
+
+           </span>                          
+
+         </div>
+
+         <h5><b>Individual Order Details</b></h5>
+
+         <table class="table table-condensed table-bordered table-striped">
+
+          <tbody>         
+
+            <tr style="color:#000;" class="tot">
+
+              <th>S.No</th><th>Receipt No</th><th>OrderId</th><th>Delivery Date</th><th>Service Items</th><th>Status</th><th id="print-hide">Action</th>
+
+            </tr>
+
+            <tr  ng-repeat = "ord in cuOrderDetails.orders" id="{{ord.orderId}}" >
+
+              <td>{{$index+1}}</td>
+
+              <td>{{ord.details.receiptId}} <span ng-class="{'hide':(ord.details.qd == false)}"> - <b>QD</b></span></td>
+
+              <td>
+
+                <a href="#/app/order-details-only/{{ord.details.orderId}}">{{ord.details.orderId}} </a>
+
+              </td>
+
+              <td>
+
+                {{ord.details.deliveryDate  | date : 'MMM dd, yyyy'}} 
+
+              </td>
+
+              <td>
+
+                <span ng-repeat="order in ord.orders">
+                  <b>{{order.service}}</b> - {{order.item}} - {{order.icount}} &nbsp;&nbsp; 
+                  <span ng-repeat="ad in order.addons">
+                   <strong>{{ad.key}} - {{ad.value}}</strong>
+                  </span><br>
+                </span>   
+
+              </td>
+
+              <td>
+
+               {{ord.details.status}}
+
+             </td>
+
+             <td id="print">
+
+              <button class="btn btn-primary" ng-click="trash(ord.details.orderId)">Delete</button>
+
+            </td>                
+
+          </tr>              
+
+        </tbody> 
+
+      </table>   
+
+      <div style="padding-top:25px;">
+
+        <div class="text-center" style="width:30%;float:left;"><b>Store Admin Signature</b></div>
+
+        <div class="text-center" style="width:30%;float:left;"><b>CU Pickup Boy Signature</b></div>
+
+        <div class="text-center" style="width:30%;float:left;"><b>CU Admin Signature</b></div>
+
+      </div>
+
+      <div id="print-hide" class="col-md-12">
+
+        <span class="no-border text-center" colspan="5"> 
+
+          <button class="btn btn-primary"  ng-click="printCuorders('CUprintSection')">Print</button> 
+
+        </span>
+
+      </div>
+
+      
+
+    </div> 
+
+  </div>   
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+

@@ -1,0 +1,1050 @@
+<div ng-controller="pageWithTopMenuController">
+
+</div>
+
+<div ng-controller="DashboardController">
+
+    <!-- begin breadcrumb -->
+
+    <ol class="breadcrumb pull-right">
+
+        <li><a href="javascript:;">Home</a></li>
+
+        <li class="active">Dashboard View</li>
+
+    </ol>
+
+    <style>
+
+    #dashboardList {
+
+        height: 400px;
+
+        width: 100%;
+
+        overflow-y: auto;
+
+    }
+
+    </style>
+
+    <!-- end breadcrumb -->
+
+    <!-- begin page-header -->
+
+    <h1 class="page-header">Dashboard <small></small></h1>
+
+    <!-- end page-header -->
+
+    <!-- begin row -->
+
+    <div ng-show="dashboardType=='storeDashboard'">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="panel panel-inverse overflow-hidden">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-heading-btn">
+
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                        </div>
+
+                        <h4 class="panel-title">Orders based on Status</h4>
+
+                    </div>
+
+                    <div class="panel-body panel-form" style="min-height: 150px;">
+
+                        <div class="form-horizontal form-bordered col-md-6">
+
+                            <!-- <div class="form-group">
+
+                <div class="col-md-8 text-right">New Mobile Orders</div>
+
+                <div class="col-md-4"> 
+
+                  <strong ng-click="ordersInDetails('newMobileOrders')">{{dashboard.store.newMobileOrders}}</strong>
+
+                </div>
+
+              </div> -->
+
+                            <div class="form-group">
+
+                                <div class="col-md-8 text-right">New Orders</div>
+
+                                <div class="col-md-4">
+
+                                    <strong class="cursor" ng-click="ordersInDetails('storeInProcessOrders')">{{dashboard.store.storeInProcessOrders}}</strong>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-8 text-right">Store Out Process Orders</div>
+
+                                <div class="col-md-4">
+
+                                    <strong class="cursor" ng-click="ordersInDetails('storeOutProcessOrders')">{{dashboard.store.storeOutProcessOrders}}</strong>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-8 text-right">Store Delivery Pending Orders</div>
+
+                                <div class="col-md-4 cursor"> 
+
+                                    <strong class="cursor" ng-click="ordersInDetails('deliveryPendingOrders')">
+
+                                        {{dashboard.store.deliveryPendingOrders}}
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-horizontal form-bordered col-md-6">
+
+                            <div class="form-group">
+
+                                <div class="col-md-8 text-right">CU Processing Orders </div>
+
+                                <div class="col-md-4">
+
+                                    <strong class="cursor" ng-click="ordersInDetails('cuProcessingOrders')">
+
+                      {{dashboard.store.cuProcessingOrders}}
+
+                    </strong>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-8 text-right">CU Delivery Pending Orders</div>
+
+                                <div class="col-md-4">
+
+                                    <strong class="cursor" ng-click="ordersInDetails('cuDeliveryPendingOrders')">
+
+                  {{dashboard.store.cuDeliveryPendingOrders}}</strong>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-8 text-right">Cu Pending Recive Orders</div>
+
+                                <div class="col-md-4 cursor">   <strong class="cursor" ng-click="ordersInDetails('cuPendingOrders')">{{dashboard.store.cuPendingOrders}}</strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <div class="panel panel-inverse overflow-hidden">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-heading-btn">
+
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                        </div>
+
+                        <h4 class="panel-title">Store Dues</h4>
+
+                    </div>
+
+                    <div class="panel-body" style="min-height: 150px;">
+
+                        <div class="form-group">
+
+                            <div class="big text-center">
+
+                                
+
+                                <a href="#app/store-pending-balance"><h2 class="cursor txt-red semi-bold" >{{dashboard.store.storeBalanceAmount | number:2}}</h2>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="panel panel-inverse overflow-hidden">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-heading-btn">
+
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                        </div>
+
+                        <h4 class="panel-title">Store Collection</h4>
+
+                    </div>
+
+                    <div class="panel-body"  style="min-height: 150px;">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-9">
+
+                                <div class="input-group input-daterange">
+
+                                    <span class="input-group-btn">
+
+                                      <button class="btn btn-default" type="button">
+
+                                        <i class="fa fa-calendar"></i>
+
+                                      </button>
+
+                                    </span>
+
+                                    <input type="text" class="form-control" id="scFromDate" placeholder="Select Date From" ng-model="sc.fromDate" />
+
+                                    <span class="input-group-addon"> To </span>
+
+                                    <input type="text" class="form-control" id="scToDate" placeholder="Select Date To" ng-model="sc.toDate" />
+
+                                    <span class="input-group-btn">
+
+                                        <button class="btn btn-primary" type="button" ng-click="storeCollectionf()">
+
+                                        <i  class="fa fa-filter" ></i>
+
+                                        </button>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <input type="checkbox" name="today" ng-model=sc.toDay checked="checked" ng-click="storeCollectionf()"> Today
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12" style="top:20px;margin-bottom:20px;overflow-y: auto; max-height: 100px;">
+
+                            <table class="table table-condensed table-bordered table-striped">
+
+                                <tr>
+
+                                    <th>Date</th>
+
+                                    <th>Cash</th>
+
+                                    <th>PayTm</th>
+
+                                    <th>Credit Card</th>
+
+                                    <th>Debit Card</th>
+
+                                </tr>
+
+                                <tbody>
+
+                                <tr ng-repeat="(ptk,ptv) in sc.storeCollections track by $index">
+
+                                    <td>{{ptk}}</td>
+
+                                    <td>{{ptv.Cash}}</td>
+
+                                    <td>{{ptv.PayTM}}</td>
+
+                                    <td>{{ptv.CreditCard}}</td>
+
+                                    <td>{{ptv.DebitCard}}</td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="panel panel-inverse overflow-hidden">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-heading-btn">
+
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                        </div>
+
+                        <h4 class="panel-title">Target</h4>
+
+                    </div>
+
+                    <div class="panel-body panel-form">
+
+                        <div class="col-md-12 text-center">
+
+                            <div class="btn-group text-center">
+
+                                <p>&nbsp;</p>
+
+                                <button class="btn btn-primary " id="lastDay" ng-click="lastDay()">Today</button>
+
+                                <button class="btn btn-primary " id="monthTarget" ng-click="monthTarget()">Month Target</button>
+
+                                <button class="btn btn-primary " id="lastMonthTarget" ng-click="lastMonthTarget()">Last Month Target</button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-horizontal form-bordered col-md-12">
+
+                            <div class="form-group card">
+
+                                <div class="col-md-6 text-right">Orders Target</div>
+
+                                <div class="col-md-6">
+
+                                    {{result.totalOrders}}/{{result.ordersTarget}} ({{(result.totalOrders/result.ordersTarget)*100 | number:2}}%)
+
+                                    <div class="progress progress-thin">
+
+                                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width:{{(result.totalOrders/result.ordersTarget)*100 | number:2}}%"></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-6 text-right">Revenue Target</div>
+
+                                <div class="col-md-6"> {{result.totalAmount | number:2}}/{{result.revenueTarget | number:2}}({{(result.totalAmount/result.revenueTarget)*100 | number:2}} %)
+
+                                    <div class="progress progress-thin">
+
+                                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width:{{(result.totalAmount/result.revenueTarget)*100 | number:2}}%"></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-6 text-right">Avg Order Amount</div>
+
+                                <div class="col-md-6"> {{result.avgOrder| number:2}}</div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="panel-group" id="accordion">
+
+                    <div class="panel panel-inverse overflow-hidden">
+
+                        <div class="panel-heading">
+
+                            <div class="panel-heading-btn">
+
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                            </div>
+
+                            <h4 class="panel-title">Today Customer Requests</h4>
+
+                        </div>
+
+                        <div id="collapseOne" class="panel-collapse collapse in">
+
+                            <div class="panel-body">
+
+                                <table class="table table-condensed table-bordered table-striped">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>Name</th>
+
+                                            <th>Mobile</th>
+
+                                            <th>Date</th>
+
+                                            <th>Slot</th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr ng-repeat="cr in dashboard.customerRequests.today">
+
+                                            <td>{{cr.name}}</td>
+
+                                            <td>{{cr.mobile}}</td>
+
+                                            <td>{{cr.rdate}}</td>
+
+                                            <td>{{cr.slot}}</td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="panel panel-inverse overflow-hidden">
+
+                        <div class="panel-heading">
+
+                            <div class="panel-heading-btn">
+
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                            </div>
+
+                            <h4 class="panel-title">Yesterday Customer Requests</h4>
+
+                        </div>
+
+                        <div id="collapseTwo" class="panel-collapse collapse">
+
+                            <div class="panel-body">
+
+                                <table class="table table-condensed table-bordered table-striped">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>Name</th>
+
+                                            <th>Mobile</th>
+
+                                            <th>Date</th>
+
+                                            <th>Slot</th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr ng-repeat="cr in dashboard.customerRequests.yesterday">
+
+                                            <td>{{cr.name}}</td>
+
+                                            <td>{{cr.mobile}}</td>
+
+                                            <td>{{cr.rdate}}</td>
+
+                                            <td>{{cr.slot}}</td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="panel panel-inverse overflow-hidden">
+
+                        <div class="panel-heading">
+
+                            <div class="panel-heading-btn">
+
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                            </div>
+
+                            <h4 class="panel-title">Tomorrow Customer Requests</h4>
+
+                        </div>
+
+                        <div id="collapseThree" class="panel-collapse collapse">
+
+                            <div class="panel-body">
+
+                                <table class="table table-condensed table-bordered table-striped">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>Name</th>
+
+                                            <th>Mobile</th>
+
+                                            <th>Date</th>
+
+                                            <th>Slot</th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr ng-repeat="cr in dashboard.customerRequests.tomorrow">
+
+                                            <td>{{cr.name}}</td>
+
+                                            <td>{{cr.mobile}}</td>
+
+                                            <td>{{cr.rdate}}</td>
+
+                                            <td>{{cr.slot}}</td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="panel panel-inverse overflow-hidden">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-heading-btn">
+
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                        </div>
+
+                        <h4 class="panel-title">Store Details</h4>
+
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="">
+
+                            <h4>Store Admins</h4>
+
+                            <table class="table table-condensed table-bordered table-striped">
+
+                                <tr>
+
+                                    <th>S.No</th>
+
+                                    <th>Name</th>
+
+                                    <th>Mobile</th>
+
+                                </tr>
+
+                                <tr ng-repeat="emp in dashboard.store.employee track by $index">
+
+                                    <td>{{$index+1}}</td>
+
+                                    <td>{{emp.name}}</td>
+
+                                    <td>{{emp.mobile}}</td>
+
+                                </tr>
+
+                            </table>
+
+                            <h4>Pickupboys</h4>
+
+                            <table class="table table-condensed table-bordered table-striped">
+
+                                <tr>
+
+                                    <th>S.No</th>
+
+                                    <th>Name</th>
+
+                                    <th>Mobile</th>
+
+                                </tr>
+
+                                <tr ng-repeat="emp in dashboard.store.pickupBoys track by $index">
+
+                                    <td>{{$index+1}}</td>
+
+                                    <td>{{emp.name}}</td>
+
+                                    <td>{{emp.mobile}}</td>
+
+                                </tr>
+
+                            </table>
+
+                            <h4>Customer Details</h4>
+
+                            <table class="table table-condensed table-bordered table-striped">
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>New Customers</td>
+
+                                        <td>{{dashboard.customer.newCustomers}}</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Active Customers</td>
+
+                                        <td>{{dashboard.customer.activeCustomers}}</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Passive Customers </td>
+
+                                        <td>{{dashboard.customer.passiveCustomers}}</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Green Flag Customers </td>
+
+                                        <td>{{dashboard.customer.greenFlagCustomers}}</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Red Flag Customers </td>
+
+                                        <td>{{dashboard.customer.redFlagCustomers}}</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Total Customers </td>
+
+                                        <td>{{dashboard.customer.totalCustomers}}</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Avg Order Processing Time</td>
+
+                                        <td>{{dashboard.customer.avgProcessingTime}}</td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <modal id="resultOrders" title="Detail Orders" visible="showModal">
+                <div class="table-responsive" style="overflow-y: auto; height: 500px;">
+                    <table class="table table-striped table-bordered nowrap" width="100%">
+
+                        <tbody>
+
+                            <th>OrderId</th>
+
+                            <th>Order date</th>
+
+                            <th>Customer Name</th>
+
+                            <th>Mobile No</th>
+
+                            <th>Status</th>
+
+                        </tbody>
+
+                        <tr ng-repeat="ol in detailResult.orders track by $index">
+
+                            <td>
+
+                                <a target="_blank" href="#app/order-details-only/{{ol.orderId}}" title="{{ol.customerName+''+ol.customerMobile}}">{{ol.orderId}}</a>
+
+                            </td>
+
+                            <td>{{ol.orderDate}}</td>
+
+                            <td>{{ol.customerName}}</td>
+
+                            <td>{{ol.customerMobile}}</td>
+
+                            <td ng-hide="ol.rtype=='balance'">{{ol.orderStatus}}</td>
+
+                            <td ng-show="ol.rtype=='balance'">{{ol.balanceAmount|number:2}}</td>
+
+                        </tr>
+
+                    </table>
+                    </div>
+                </modal>
+
+                <!-- <modal id="resultOrders" title="Detail Orders" visible="showModal">
+
+                    <ul class="list-group list-orders" >
+
+                        <li class="list-group-item">
+
+                          <div class="row">
+
+                                <div class="col-md-4">OrderId</div>
+
+                                <div class="col-md-2">Order Date</div>
+
+                                <div class="col-md-3">Customer Name</div>
+
+                                <div class="col-md-2">Mobile No</div>
+
+                                <div class="col-md-1">Order Status</div>
+
+                            </div>     
+
+                        </li>
+
+                        <li class="list-group-item" ng-repeat="ol in detailResult.orders track by $index">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    <a target="_blank" href="#app/order-details-only/{{ol.orderId}}" title="{{ol.customerName+''+ol.customerMobile}}">{{ol.orderId}}</a>
+
+                                </div>
+
+                                <div class="col-md-2">{{ol.orderDate}}</div>
+
+                                <div class="col-md-3">{{ol.customerName}}</div>
+
+                                <div class="col-md-2">{{ol.customerMobile}}</div>
+
+                                <div ng-hide="ol.rtype=='balance'" class="col-md-1">{{ol.orderStatus}}</div>
+
+                                <div ng-show="ol.rtype=='balance'" class="col-md-1">{{ol.balanceAmount|number:2}}</div>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </modal> -->
+
+                
+
+            </div>
+
+        </div>
+
+        <!-- end row -->
+
+    </div>
+
+    <div ng-show="dashboardType=='adminDashboard'">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="form-horizental form-bordered">
+
+                    <div class="panel panel-body">
+
+                        <div class="col-md-2 col-md-offset-4">
+
+                            <div class="form-group">
+
+                                <input type="text" name="fromDate" id="fromDate" placeholder="From Date" class="form-control">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <div class="input-group">
+
+                                <input type="text" name="toDatef" id="toDatef" placeholder="To Date" class="form-control" aria-describedby="todateAddon" />
+
+                                <span class="input-group-addon" id="todateAddon">
+
+              <i class=" fa fa-filter btn btn-primary" ng-click="doFilter();"></i>
+
+            </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="panel panel-body">
+
+                    <table class="table table-striped">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Store</th>
+
+                                <th>DC</th>
+
+                                <th>SI</th>
+
+                                <th>WI</th>
+
+                                <th>Total</th>
+
+                                <th>Collections</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr ng-repeat="(dtk, dtv) in dashboard.ordersTable track by $index">
+
+                                <td>{{$index+1}}</td>
+
+                                <td>{{dtk}}</td>
+
+                                <td>{{dtv.DC | number:2}}</td>
+
+                                <td>{{dtv.SI | number:2}}</td>
+
+                                <td>{{dtv.WI | number:2}}</td>
+
+                                <td>{{dtv.DC+dtv.SI+dtv.WI | number:2}}</td>
+
+                                <td>{{dtv.collections | number:2}}</td>
+
+                            </tr>
+
+                        </tbody>
+
+                        <tfoot>
+
+                            <tr>
+
+                                <th></th>
+
+                                <th></th>
+
+                                <th>{{dcTotal|number:2}}</th>
+
+                                <th>{{siTotal|number:2}}</th>
+
+                                <th>{{wiTotal|number:2}}</th>
+
+                                <th>{{dcTotal+siTotal+wiTotal|number:2}}</th>
+
+                                <th>{{collectionsTotal|number:2}}</th>
+
+                            </tr>
+
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="panel panel-body">
+
+                    <table class="table table-striped">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Store</th>
+
+                                <th>CRR</th>
+
+                                <th>CRAPB</th>
+
+                                <th>CRSS</th>
+
+                                <th>CRC</th>
+
+                                <th>CRD</th>
+
+                                <th>Total</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr ng-repeat="(dtk, dtv) in dashboard.crTable track by $index">
+
+                                <td>{{$index+1}}</td>
+
+                                <td>{{dtk}}</td>
+
+                                <td>{{dtv.CRR | number:2}}</td>
+
+                                <td>{{dtv.CRAPB | number:2}}</td>
+
+                                <td>{{dtv.CRSS | number:2}}</td>
+
+                                <td>{{dtv.CRC | number:2}}</td>
+
+                                <td>{{dtv.CRD | number:2}}</td>
+
+                                <td>{{dtv.CRR+dtv.CRAPB+dtv.CRSS+dtv.CRC+dtv.CRD | number:2}}</td>
+
+                            </tr>
+
+                        </tbody>
+
+                        <tfoot>
+
+                            <tr>
+
+                                <th></th>
+
+                                <th></th>
+
+                                <th>{{crrTotal|number:2}}</th>
+
+                                <th>{{crapbTotal|number:2}}</th>
+
+                                <th>{{crssTotal|number:2}}</th>
+
+                                <th>{{crcTotal|number:2}}</th>
+
+                                <th>{{crdTotal|number:2}}</th>
+
+                                <th>{{crrTotal+crapbTotal+crssTotal+crcTotal+crdTotal|number:2}}</th>
+
+                            </tr>
+
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+

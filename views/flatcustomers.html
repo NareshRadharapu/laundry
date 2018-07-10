@@ -1,0 +1,122 @@
+<div ng-controller="pageWithTopMenuController">
+
+
+
+
+
+</div>
+
+<div ng-controller="FlatCustomerController">
+
+    <!-- begin breadcrumb -->
+
+    <ol class="breadcrumb pull-right">
+
+        <li><a href="javascript:;">Home</a></li>
+
+        <li class="active">Customers List</li>
+
+    </ol>
+
+    <!-- end breadcrumb -->
+
+    <!-- begin page-header -->
+
+    <h1 class="page-header">Flat Customers List<small></small></h1>
+
+    <!-- end page-header -->
+
+    
+
+    <div class="row">
+
+        <div class="col-md-3" >
+
+            <div class="panel panel-inverse">
+
+                <div class="panel-heading">
+
+                    <div class="panel-heading-btn">
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+
+                    <h4 class="panel-title">Flat - {{flat}} Customers </h4>
+
+                </div>
+
+                <div class="panel-body">
+
+					<span ng-repeat="c in customers">
+                    	<span style="margin-bottom:10px;" class="btn btn-white m-r-5" ng-click="viewCustomer(c.id);" >{{c.firstname}}</span>
+                    </span>		
+                    
+
+                </div>
+
+            </div> 
+
+                </div>
+                
+        <div class="col-md-4" ng-show="customer['id']" >
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">{{customer.firstname}} Details </h4>
+                </div>
+                <div class="panel-body">
+					<table class="table table-hover table-condensed table-bordered table-striped">
+                        <tbody>
+                            <tr><td>Cust Id</td><td>{{customer.id}}</td></tr>
+                            <tr><td>First Name</td><td>{{customer.firstname}}</td></tr>
+                            <tr><td>Last Name</td><td>{{customer.lastname}}</td></tr>
+                            <tr><td>Email</td><td>{{customer.email}}</td></tr>
+                            <tr><td>Mobile</td><td>{{customer.mobile}}</td></tr>
+                        </tbody>
+                    </table>
+					<span class="btn btn-white m-r-5" ng-click="viewOrder(customer.id);" >Order History</span>                    
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-5" ng-show="orders[0]">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">{{customer.firstname}} Order History </h4>
+                </div>
+                <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="col-md-3 search1">
+                          <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search"  /><br />
+                    </div> 
+					<table  ng-table="tableParams" class="table table-hover table-condensed table-bordered table-striped">
+                    	 <tbody>
+                            <tr ng-repeat="o in $data | filter:search" >
+                                <td data-title="'S.No'" sortable="'id'">{{o.id}}</td>
+                                <td data-title="'Order Id'" sortable="'order_id'" ng-click="orderDetails(o.order_id);" >{{o.order_id}}</td>
+                                <td data-title="'Order Placed'" sortable="'updated_at'">{{o.updated_at['date']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div> 
+        </div> 
+                              
+    </div>
+    
+</div>
+

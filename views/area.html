@@ -1,0 +1,145 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="AreaController">
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Areas</li>
+  </ol>
+  <!-- end breadcrumb -->
+  <!-- begin page-header -->
+  <h1 class="page-header">Areas <small></small></h1>
+  <!-- end page-header -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+          </div>
+          <h4 class="panel-title">Add / Modify Area</h4>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" name="validationForm" ng-submit="addArea()">
+            <div class="form-group">
+              <label class="col-md-4 control-label">Select City <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <select class="form-control" ng-model="area.city" required>
+                  <option value="">Select City</option>
+                  <option ng-repeat="c in cities" value="{{c.id}}" ng-selected="c.id==area.city">{{c.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="area">Area Name <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="hidden" class="form-control" ng-model="area.id" name="id" />
+                <input type="text" class="form-control" ng-model="area.name" name="area" autocomplete="off" placeholder="Enter Area Name" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="area">Area Code <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" ng-model="area.code" name="area" autocomplete="off" placeholder="Enter Area Code" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="area">Catalog <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <select class="form-control" ng-model="area.catalog" required>
+                  <option value="">Select Catalog</option>
+                  <option ng-repeat="c in catalogs" value="{{c.id}}" ng-selected="c.id==area.catalog">{{c.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4" for="services">Services <span class="text-danger">*</span> </label>
+              <div class="col-md-6">
+                <div checklistModel></div>
+                <div ng-repeat="a in services" class="checkbox">
+                  <label>
+                    <input type="checkbox" checklist-model="area.sservices" checklist-value="a.id" ng-checked="">{{a.name}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="area">Service Tax </label>
+                <div class="col-md-6 margin_top">
+                  <input type="checkbox" ng-model="area.isServiceTax" ng-value="area.isServiceTax" ng-checked="area.isServiceTax">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="area">Address <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <textarea type="text" class="form-control" ng-model="area.address" name="address" autocomplete="off" placeholder="Enter Address" required /></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="area">Landmark <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" ng-model="area.landmark" name="landmark" autocomplete="off" placeholder="Enter Landmark" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="area">Pincode <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" ng-model="area.pincode" name="pincode" autocomplete="off" placeholder="Enter Pincode" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4" for="area">Mobile <span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                  <input type="tel" class="form-control" ng-model="area.mobile" name="mobile" autocomplete="off" placeholder="Enter Mobile Number" required />
+                </div>
+              </div>
+              <div class="form-group m-b-0">
+                <label class="control-label col-md-4"></label>
+                <div class="col-md-6">
+                  <button type="submit" class="btn btn-success width-xs">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="panel panel-inverse">
+          <div class="panel-heading">
+            <div class="panel-heading-btn">
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+            </div>
+            <h4 class="panel-title">Areas List</h4>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <div class="col-md-3 search1">
+                <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" />
+                <br />
+              </div>
+              <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                <tbody>
+                  <tr ng-repeat="a in $data | filter:search">
+                    <td data-title="'S.No'" sortable="'id'">{{a.id}}</td>
+                    <td data-title="'Area Name'" sortable="'name'">{{a.name}}</td>
+                    <td data-title="'Area Code'" sortable="'code'">{{a.code}}</td>
+                    <td data-title="'Mobile'" sortable="'mobile'">{{a.mobile}}</td>
+                    <td data-title="'Catalog'" sortable="'catalog_id.name'">{{a.catalog_id.name}}</td>
+                    <td data-title="'Services'" sortable="'service'">
+                      <li ng-repeat="as in a.areaServices">{{as.name}},</li>
+                    </td>
+                    <td data-title="'City Name'" sortable="'city_id.name'">{{a.city_id.name}}</td>
+                    <td data-title="'Status'" sortable="'status'"><img src="assets/img/{{a.status}}.png" ng-click="statusArea(a.id);"> </td>
+                    <td data-title="'Edit'"><img src="assets/img/edit.png" ng-click="editArea(a.id);"> </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

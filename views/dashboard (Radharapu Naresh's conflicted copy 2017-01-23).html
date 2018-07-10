@@ -1,0 +1,69 @@
+    <div ng-controller="pageWithTopMenuController">
+    </div>
+
+    <div ng-controller="DashboardController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Dashboard View</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Dashboard <small></small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="btn-group ">
+                    <button class="btn btn-primary active " id="lastDay" ng-click="lastDay()">Last Day</button>
+                    <button class="btn btn-primary"  id="lastMonth" ng-click="lastMonth()">Last Month</button>
+                    <button class="btn btn-primary" id="records" ng-click="allRecords()">All</button>
+                </div><br>
+                <div class="row">
+                <div class="container">
+                    <div class="span12" id="result">
+                       <dl class="dl-horizontal"> 
+                        <dt>Total Orders</dt>:<dd>{{result.totalOrders}}</dd>
+                        <dt>totalAmount</dt>:<dd>{{result.totalAmount}}</dd>
+                        <dt>Total paidAmount</dt>:<dd>{{result.paidAmount}}</dd>
+                        <dt>Total balanceAmount</dt>:<dd>{{result.balanceAmount}}</dd>
+                        <dt>Total reFundAmount</dt>:<dd>{{result.reFundAmount}}</dd>
+
+                        <dt>Total cuPendingOrders</dt>:<dd>{{result.pendingOrders.cuPendingOrders}}</dd>
+                        <dt>Total storePendingOrders</dt>:<dd>{{result.pendingOrders.storePendingOrders}}</dd>
+                        <dt>Total storeInPendingOrders</dt>:<dd>{{result.pendingOrders.storeInPendingOrders}}</dd>
+
+                        <dt>Total storeOutPendingOrders</dt>:<dd>{{result.pendingOrders.storeOutPendingOrders}}</dd>
+                        
+                        </dl>
+                    </div> 
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+       <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="btn-group center-block">
+                    <span class="heading"> Store Details </span>
+                </div>
+                <div class="container">
+                <div>{{result.store.employee}}</div>
+                      <table>
+                      <tr><th>S.No</th><th>Name</th><th>Mobile</th></tr>
+                        <tr ng-repeat="emp in result.store.employee track by $index">
+                       <td>{{$index+1}}</td><td>{{emp.name}}</td><td>{{emp.mobile}}</td>
+                       </tr>  
+                      </table>
+                        
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- end row -->
+
+    </div>    

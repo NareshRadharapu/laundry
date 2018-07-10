@@ -1,0 +1,246 @@
+<!--  begin #top-menu -->
+<div id="top-menu" class="top-menu" ng-controller="topMenuController">
+    <div class="container-fluid">
+        <!-- begin top-menu nav -->
+        <ul class="nav">
+            <li class="has-sub" ng-class="{active:$state.includes('app.dashboard')}" ng-if="userRole == 'STORE_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-laptop"></i>
+                    <span>Dashboard</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.dashboard">Dashboard</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.super-admin-dashboard')}" ng-if="userRole == 'SUPER_ADMIN' || userRole == 'AREA_INCHARGE'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-laptop"></i>
+                    <span>Dashboard</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.super-admin-dashboard">Dashboard</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.super-admin-reports">Reports</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'AREA_INCHARGE'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Details</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.placeorders">Orders History</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.customerRequests">Customer Requests</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.cu-send-orders">CU Send Orders</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.cu-delivery-orders">CU Delivery Orders</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.deletedorders">Deleted Orders</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-delivery-orders">Store Delivery Orders List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-collection">Collections Orderwise List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-pending-balance">Pending Balance Orderwise List</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Laundry</span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="has-sub" ng-class="{active:$state.includes('app.ui')}">
+                        <a href="javascript:;"><b class="caret pull-right"></b>Catalog</a>
+                        <ul class="sub-menu">
+                            <li ui-sref-active="active"><a ui-sref="app.catalog">Create Catalog</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.addon">Create Addons</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.service">Create Services</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.itemtype">Create Item Type</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.item">Create Items</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.additemstocatlog">Add Items to Catlog</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Settings</span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="has-sub" ng-class="{active:$state.includes('app.ui')}">
+                        <a href="javascript:;"><b class="caret pull-right"></b>Apartment</a>
+                        <ul class="sub-menu">
+                            <li ui-sref-active="active"><a ui-sref="app.city">Create City</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.area">Create Areas</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.apartment">Create Apartment</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.block">Create Blocks</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.flat">Create Flats</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.vehicle-registration">Add Vehicles to Flat</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-sub" ng-class="{active:$state.includes('app.ui')}">
+                        <a href="javascript:;"><b class="caret pull-right"></b>Admin Settings</a>
+                        <ul class="sub-menu">
+                            <li ui-sref-active="active"><a ui-sref="app.settings">Settings</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.resources">Resources</a></li>
+                            <li ui-sref-active="active"><a ui-sref="app.permissions">Permissions</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN' || userRole == 'STORE_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Order Screens</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.customerenquiry">Place Order</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.customerusers">Register User</a></li>
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.customerapartments">Register Apartment User</a></li> -->
+                    <li ui-sref-active="active"><a ui-sref="app.placeorders">Orders History</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.processorders">Orders Process</a></li>
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.trackorder">Track Order</a></li>
+          <li ui-sref-active="active"><a ui-sref="app.orderpayments">Order Payments</a></li>
+          <li ui-sref-active="active"><a ui-sref="app.orderprint">Order Print</a></li>
+          <li ui-sref-active="active"><a ui-sref="app.record">Order Records</a></li> -->
+                    <li ui-sref-active="active"><a ui-sref="app.returngarment">Return Garments</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.holdgarment">Hold Garments</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.customerRequests">Customer Requests</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.cu-send-orders">CU Send Orders</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.cu-delivery-orders">CU Delivery Orders</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.deletedorders">Deleted Orders</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.customerPackages">Customer Packages</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-delivery-orders">Store Delivery Orders List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.storedailyreport">Store Daily Closing Report</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'COLLECTION_BOY' || userRole == 'ACCOUNTS_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Order Screens</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.placeorders">Orders History</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.returngarment">Return Garments</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.deletedorders">Deleted Orders</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-collection">Store Collections List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-pending-balance">Store Pending Balance List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.storedailyreport">Store Daily Closing Report</a></li>
+                    <li ui-sref-active="active" ng-if="userRole == 'COLLECTION_BOY'"><a ui-sref="app.cboy-transactions">Cboy Transactions List</a></li>
+                    <li ui-sref-active="active" ng-if="userRole == 'ACCOUNTS_ADMIN'"><a ui-sref="app.accountant-transactions">A/C Transactions List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.handoverReport">Handover Report</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'COLLECTION_BOY' || userRole == 'ACCOUNTS_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Reports</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.revenue-report">Revenue Report</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.paid-amount-report">Paid Amount Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.storewiseCollection">Storewise Collection </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.balance-report">Balance Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.discount-report">Discount Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.return-garments-report">Return Garments Report </a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN' || userRole == 'STORE_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Accounts</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.customer-balance-list">Customer Balance List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-collection">Store Collections List</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-pending-balance">Store Pending Balance List</a></li>
+                    <li ui-sref-active="active" ng-if="userRole == 'STORE_ADMIN'"><a ui-sref="app.store-transactions">Store Transactions List</a></li>
+                    <li ui-sref-active="active" ng-if="userRole == 'SUPER_ADMIN'"><a ui-sref="app.handoverReport">Handover Report</a></li>
+
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'CALL_CENTER'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Order Screens</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.customerenquiry">Place Order</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.customerRequests">Customer Requests</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN' || userRole == 'AREA_INCHARGE'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Info</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.catalogview">Catalog </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.apartmentdetails">Apartment </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.individualuserview">Individual User </a></li>
+                    <!--            <li ui-sref-active="active"><a ui-sref="app.settings">Settings</a></li> -->
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Registration</span>
+                </a>
+                <ul class="sub-menu">
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.faculty-registration">Faculty </a></li> -->
+                    <li ui-sref-active="active"><a ui-sref="app.employee-registration">Employee </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.pickupboy-registration">Pickup Boy </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.cu-employee-registration">CU Employee </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.vendor-group-registration">Vendor Group </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.vendor-registration">Vendor </a></li>
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.settings">Settings</a></li> -->
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN' || userRole == 'AREA_INCHARGE'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Reports</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.orders-report">Orders Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.revenue-report">Revenue Report</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.garments-report">Garments Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.paid-amount-report">Paid Amount Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.storewiseCollection">Storewise Collection </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.balance-report">Balance Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.discount-report">Discount Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.return-garments-report">Return Garments Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.order-by-status-report">Order By Status Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.customers-report">Customers Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.active-passive-customers-report">Active Passive Customers Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.store-login-logout-history">Stores Login History </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.orderwisestatusreport">Orderwise Status Report </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.vendorsReport">Vendors Report </a></li>
+                    <!--            <li ui-sref-active="active"><a ui-sref="app.settings">Settings</a></li> -->
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>SMS</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.store-customers-sms">Store Customers Sms</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.custom-sms">Custom Sms</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Coup

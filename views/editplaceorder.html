@@ -1,0 +1,131 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+
+<div ng-controller="EditPlaceOrderController">
+
+    <!-- begin breadcrumb -->
+
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Edit Place Order</li>
+    </ol>
+
+    <!-- end breadcrumb -->
+
+    <!-- begin page-header -->
+
+    <h1 class="page-header">Edit Place Order <small></small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Edit Place Order</h4>
+                </div>
+              <div class="panel-body" >
+	              <div class="col-md-12">
+              		<fieldset>   
+                     	<button class="add"  ng-click="addNewChoice()">+</button>
+                     </fieldset>
+                   </div>
+                   <div class="col-md-12">                   
+	                <form class="form-horizontal" method="post" name="placeOrderForm" ng-submit="saveOrder(); " > 
+                    <fieldset>
+                    	<div class="col-md-12">
+                        	<div class="col-md-6">
+                        		<input type="date" name="orderDate" ng-model="placeorder.orderDate" class="form-control"/>
+                            </div>
+                            <div class="col-md-6">
+     							<input type="number" name="adminDiscount" ng-model="placeorder.adminDiscount" min="0" max="70" class="form-control"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                   
+                    <fieldset  data-ng-repeat="poi in previousOrder">
+                     <div class="col-md-12">
+                       <div class="col-md-1"> &nbsp; </div>
+                       <div class="col-md-2">
+                          <select class="form-control" data-ng-model="placeorder[$index]['service']" ng-init="initModelFilter('service' ,poi.serviceId, $index)" name="service" required ng-change="getServiceAddons(placeorder['service'][$index], $index)"  ng-options="service.id as service.name for service in services">
+                              <!-- <option value="">Select Service</option>
+                              <option ng-repeat="s in services" value="{{s.id}}" ng-selected="s.id==poi.serviceId">{{s.name}}</option> -->
+                          </select>
+                        </div> 
+                       <div class="col-md-2"> 
+                          <select class="form-control" ng-model="placeorder[$index]['itemtype']" name="itemtype"  ng-change="getItems(placeorder['itemtype'][$index], $index)" >
+                              <option value="">Select Item Type</option>
+                              <option ng-repeat="it in itemTypes" value="{{it.id}}" ng-selected="it.id==poi.itemTypeId">{{it.name}}</option>
+                          </select>
+                        </div>
+                       <div class="col-md-2">
+                          <select class="form-control" ng-model="placeorder[$index]['pitem']" name="pitem" required >
+                              <option value="">Select Item</option>
+                              <option ng-repeat="i in items[$index]" value="{{i.id}}" ng-selected="i.id==poi.itemId">{{i.name}}</option>
+                          </select>
+                        </div>
+                       <div class="col-md-2">  
+                          <input class="form-control" type="number" ng-model="placeorder[$index]['quantity']" min="1" name="quantity" value="{{poi.icount}}" placeholder="Quantity" required >
+                        </div>  
+                       <div class="col-md-2">
+                          <input type="checkbox" ng-model="placeorder[$index]['addonFlag']" ng-init="placeorder[$index]['addonFlag'] = (poi.addons.length > 0)" name="addonFlag"/> Addons &nbsp;
+                          <button class="remove" ng-click="removeChoice(poi)">-</button>
+                        </div>	
+                       <div class="col-md-1"> &nbsp; </div>  
+                     </div> 
+                      <div class="col-md-12" ng-show="placeorder[$index]['addonFlag']" style="padding:20px;" >
+                       <div class="col-md-1"> &nbsp; </div>
+                       <div class="col-md-2" ng-repeat="a in addons[$index]" >
+                        <input type="checkbox" ng-model="placeorder[$parent.$index]['addons'][$index]['addOnflag']" ng-checked="(poi.addons[$index] !== undefined) ? true : false" ng-init="placeorder[$parent.$index]['addons'][$index]['addOnflag'] = (poi.addons[$index] !== undefined) ? true : false" name="addon"  ng-true-value="{{a.id}}" ng-false-value="0"  /> {{a.name}} <br/>
+                        <!-- <input type="checkbox" ng-checked="(poi.addons[$index] !== undefined) ? true : false" ng-init="placeorder[$parent.$index]['addons']['addOnflag'] = (poi.addons[$index] !== undefined) ? true : false" name="addon"  ng-true-value="{{a.id}}" ng-false-value="0"  /> {{a.name}} <br /> -->
+                            
+                            <span ng-show="placeorder[$parent.$index]['addons'][$index]['addOnflag']">
+                            <input type="text" class="addrow"  ng-model="placeorder[$parent.$index]['addons'][$index]['addon_count']" ng-init="placeorder[$parent.$index]['addons'][$index]['addon_count'] = poi.addons[$index].addon_count" min="1" max="{{placeorder[$parent.$index]['quantity']}}" placeholder="Quantity" /> 
+                             Cost :{{placeorder[$parent.$index]['addons'][$index]['acost'][$index] = a.cost*placeorder[$parent.$index]['addons'][$index]['addon_count']}}
+                            <input type="hidden" class="addrow" ng-model="placeorder[$parent.$index]['addons'][$index]['acost']" value="{{a.cost}}" /> 
+                        </span>
+                        </div>
+                      </div> 
+      					
+	   				</fieldset>
+                     
+                     
+                     
+                     
+                     
+           
+                   
+   					<!--	<button class="btn btn-primary width-xs" ng-click="addNewChoice()">Add Row</button> -->
+
+                <div class="col-md-12" style="padding:15px;">
+						<span ng-repeat="ad in addresses ">
+							<div class="col-md-3" style="padding:10px;">
+                               <input type="radio" ng-model="placeorder.addressId" ng-value="{{ad.address_id}}" >
+                               <b style="font-size:15px">  Address {{$index+1}}</b> 
+                               <p> <b>Landmark :</b> {{ad.landmark}} </p>
+                               <p> <b>Address :</b> {{ad.address}}</p>
+                            </div>
+                        </span>
+                   </div>
+                                     
+                  	 <div class="form-group m-b-0">
+                        <label class="control-label col-md-4"></label>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary width-xs">Submit</button>
+                        </div>
+                     </div>
+   				</form>
+             </div>
+			</div>
+            
+</div>
+</div>
+              
+</div>
+</div>

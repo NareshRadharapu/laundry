@@ -1,0 +1,106 @@
+<div ng-controller="pageWithTopMenuController">
+</div>
+<div ng-controller="ActivePassiveCustomersController">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li class="active">Active Passive Customers List</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Active Passive Customers List <small></small></h1>
+    <!-- end page-header -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Active Passive Customers List</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <!-- <div class="col-md-2">
+                            <select class="form-control" ng-model="activeCount">
+                                <option selected>Select Days</option>
+                                <option value="5">5 Days</option>
+                                <option value="10">10 Days</option>
+                                <option value="15">15 Days</option>
+                                <option value="30">30 Days</option>
+                                <option value="45">45 Days</option>
+                            </select>
+                        </div> -->
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <select class="form-control" name="area" ng-model="cusomer.area" required ng-change="areaSelected(cusomer.area)" >
+                                    <option value="">-- Select Area --</option>
+                                    <option ng-repeat="a in areas" value="{{a.id}}" ng-selected="a.id==cusomer.area">{{a.name}}</option>  
+                                </select>
+                                 <br />
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3 search1">
+                            <input class="form-control" type="search" ng-model="search" name="search" placeholder="Search" />
+                            <br />
+                        </div> -->
+                        <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Tot Sales</th>
+                                    <th>Sales(%)</th>
+                                    <th>Tot Cust</th>
+                                    <th>Tot Cust(%)</th>
+                                    <th>New Cust</th>    
+                                    <th>New Cust(%)</th>
+                                    <th>Active Cust</th>
+                                    <th>Active Cust(%)</th>
+                                    <th>Passive Cust</th>
+                                    <th>Tot Ord</th>
+                                    <th>Tot Ord(%)</th>
+                                    <th>Avg.Ord.Val</th>
+                                    <th>Avg Ord.Val(%)</th>
+                                    <th>Avg Ord.Count</th>
+                                    <th>Avg Ord.Count(%)</th>
+                                    <th>0 Ord Cust</th>
+                                    
+                                </tr>
+                                <tr ng-init="val = reportResult[key]" ng-repeat="key in resultKeys track by $index ">
+                                    <td style="width: 6%;">{{key}}</td>
+                                    <td>{{val.totalSales}}</td>
+                                    <td>{{val.salesGrowth}} &nbsp;<i class="{{val.salesGrowthSymbol}}"></i></td>
+                                    <td>{{val.totalCustomers}}</td>
+                                    <td>{{val.totalCustomersGrowth}} &nbsp;<i class="{{val.totalCustomersGrowthSymbol}}"></i></td>
+                                    <td>{{val.newCustomers}}</td>
+                                    <td>{{val.newCustomersGrowth}} &nbsp;<i class="{{val.newCustomersGrowthSymbol}}"></i></td>
+                                    <td>{{val.activeCustomers}}</td>
+                                    <td>{{val.activeCustomersGrowth}} &nbsp;<i class="{{val.activeCustomersGrowthSymbol}}"></i></td>
+                                    <td>{{val.passiveCustomers}}</td>
+                                    <td>{{val.totalOrders}}</td> 
+                                    <td>{{val.ordersGrowth}} &nbsp;<i class="{{val.ordersGrowthSymbol}}"></i></td> 
+                                    <td>{{val.avgOrderValue}}</td>
+                                    <td>{{val.avgOrderValueGrowth}}</td>
+                                    <td>{{val.avgOrderCount}}</td>
+                                    <td>{{val.avgOrderCountGrowth}}</td>    
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .fa-arrow-up{
+        color:green;
+    }
+    .fa-arrow-down{
+        color:red;
+    }
+</style>

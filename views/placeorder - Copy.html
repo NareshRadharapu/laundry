@@ -1,0 +1,228 @@
+<div ng-controller="pageWithTopMenuController">
+
+</div>
+
+<div ng-controller="PlaceOrderController">
+
+  <!-- begin breadcrumb -->
+
+  <ol class="breadcrumb pull-right">
+
+    <li><a href="javascript:;">Home</a></li>
+
+    <li class="active">Add Items to Catlog</li>
+
+  </ol>
+
+  <!-- end breadcrumb -->
+
+  <!-- begin page-header -->
+
+  <h1 class="page-header">Place Order <small></small></h1>
+
+  <!-- end page-header -->
+
+  <div class="row">
+
+    <div class="col-md-4">
+
+      <div class="panel panel-inverse">
+
+        <div class="panel-heading">
+
+          <div class="panel-heading-btn">
+
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+          </div>
+
+          <h4 class="panel-title">Add / Modify Items to Place Order </h4>
+
+        </div>
+
+        <div class="panel-body">
+
+          <form class="form-horizontal" name="addEditPlaceOrder" ng-submit="savePreOrder();" >
+
+            <div class="form-group">
+
+             <label class="col-md-4 control-label">Select  Service <span class="text-danger">*</span></label>
+
+             <div class="col-md-6">
+
+              <select class="form-control" ng-model="placeorder.service" ng-change="getItemTypes();" ng-options=" s.id as s.name for s in services" ng-disabled="epo" required="true">
+              </select>
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label">Select Item Type <span class="text-danger">*</span></label>
+            <div class="col-md-6">
+              <select class="form-control" ng-model="placeorder.itemtype" ng-options="it.id as it.name for it in itemTypes" ng-change="getServiceItems(placeorder.itemtype);" ng-disabled="epo" required="true">
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+           <label class="col-md-4 control-label">Select Item <span class="text-danger">*</span></label>
+           <div class="col-md-6">
+            <select class="form-control" ng-model="placeorder.pitem" name="pitem" ng-options="i.id as i.name for i in items" ng-disabled="epo" required="true">
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-4" for="icount">Item Count <span class="text-danger">*</span></label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" ng-model="placeorder.icount" name="icount" autocomplete="off" placeholder="no of itmes" required="true"/>
+          </div>
+        </div>
+        <div ng-show="placeorder.icount>0" class="form-group">
+          <div class="col-md-12">
+            <div ng-repeat="a in addons" class="checkbox col-sm-12">
+             <label class="col-sm-4"><input type="checkbox" ng-click="a.selected = !a.selected" ng-checked="a.selected">{{a.name}}</label>
+             <div class="col-sm-3">
+              <input ng-show="placeorder.addons" type="number" ng-model="a.quantity" name="acount" 
+              ng-change="a.totalCost = a.quantity*a.cost" min="1" ng-disabled="!a.selected" class="form-control">
+            </div>
+            <div class="col-sm-offset-1 col-sm-3">
+              <input ng-show="placeorder.addons" type="number" ng-model="a.totalCost" name="acost"  ng-disabled="true" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group m-b-0">
+        <label class="control-label col-md-4"></label>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary width-xs" ng-disabled="addEditPlaceOrder.$invalid">Add/Update</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+</div>
+
+</div>
+
+<div class="col-md-8" ng-show="temporders.length>0">
+  <div class="panel panel-inverse">
+    <div class="panel-heading">
+
+      <div class="panel-heading-btn">
+
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+      </div>
+
+      <h4 class="panel-title"> Order Items </h4>
+    </div> 
+    <div class="panel-body">
+     <div class="table-responsive">
+       <button type="submit" class="btn btn-primary width-xs" ng-click="clearCartItems();">Clear Cart</button>
+       <form name="mainorderForm" novalidate="" ng-submit="saveMainOrder();"> 
+         <table class="table table-condensed table-bordered table-striped">
+          <tbody>
+            <tr style="color:#000;font-size:13px;">
+              <th> S.No</th>
+              <th> Service</th>
+              <th> Item</th>
+              <th> Addon</th>
+              <th> Cost</th>
+              <th> Edit</th>
+              <th> Delete</th>
+            </tr>
+            <tr ng-repeat="to in temporders  track by $index" > 
+              <td data-title="'S.No'" sortable="'id'">{{$index+1}}</td>
+
+              <td><b>{{to.service_id.name}}</b></td>
+              <td>{{to.item_id.name}} - <b>{{to.icount}}</b></td>
+              <td ><span ng-repeat="ta in to.addons"> {{ta.name}} - <b>{{ta.acount}}</b> <br></span></td>
+              <td >{{to.cost}}</td>
+              <td><img src="assets/img/edit.png" ng-click="editOrderItem(to.id, to, $index);" > </td>
+              <td><a ng-click="deleteOrderItem(to.id)">Delete</a> </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="col-md-12">
+          <div class="col-md-5 form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-md-4">Order Dates :</label>
+              <div class="col-md-8">
+               <!-- <div class="input-group date" id="datepicker-default">
+                <input type="text" ng-model="mainorder.orderDate" name="orderDate" class="form-control"/>
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div> -->
+           <!--    <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" ng-model="mainorder.orderDate"/> -->
+           <input id="datepicker-default" class="form-control datepicker" type="text" value="" name="startdate" ng-model="mainorder.orderDate" data-behavior="datepicker">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-4">Address :</label>
+            <div class="col-md-8" style="padding:0;">
+              <div ng-repeat="ad in addresses" class="col-md-12" style="padding:0"> 
+                <div class="col-md-1">
+                  <input type="radio" ng-model="mainorder.addressId" name="address" ng-value="ad.address_id" required>
+                </div>
+                <div class="col-md-10" style="margin-bottom:12px;">
+                  <textarea ng-disabled="true" class="form-control" rows="3" style="resize:none;">{{ad.address+','+ad.landmark+','+ad.area+' - '+ad.pincode}}</textarea> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-md-5">Discount (%) :</label>
+            <div class="col-md-7">
+              <input type="number" class="form-control" ng-model="mainorder.adminDiscount" name="adminDiscount" min="0" max="80" ng-change="discountChange(mainorder.adminDiscount)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-5">Sub Total :</label>
+            <div class="col-md-7">
+              <input class="form-control" value="{{subtotal}}" ng-disabled="true" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-5">Service Charge (5%) :</label>
+            <div class="col-md-7">
+             <input class="form-control" value="{{subtotal * (5 / 100)}}"  ng-disabled="true" >
+           </div>
+         </div>
+         <div class="form-group">
+          <label class="control-label col-md-5">Total :</label>
+          <div class="col-md-7">
+            <input class="form-control" value="{{mainorder.totalAmount = subtotal + (subtotal * (5 / 100)) - subtotal*(mainorder.adminDiscount/100) }}"  ng-disabled="true" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-5"></label>
+          <div class="col-md-7">
+            <input type="submit" name="subumit" class="btn btn-primary" value="Place Order">
+          </div>
+        </div>   
+      </div>
+    </div>
+  </form>
+</div>
+</div> 
+</div>
+</div>
+
+</div>
+
+</div>
+
