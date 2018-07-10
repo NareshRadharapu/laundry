@@ -164,12 +164,12 @@ $route['notification-file-upload'] 		= 'api/notificationFileUpload';
 $route['admin-order-records']			= 'api/cbsAdmin/ordersRecord';
 $route['admin-order-records-search']    = 'api/cbsAdmin/ordersRecordSearch';
 $route['transaction-history']    		= 'api/cbsAdmin/customerTransactionHistory';
-/*************************** COMPLAINTS *****************************/ 
+/*************************** COMPLAINTS *****************************/
 $route['apartment-complaint-add'] 		= 'api/apartmentAdmin/addComplaint';
 $route['apartment-complaints-list'] 	= 'api/apartmentAdmin/complaintsList';
 $route['apartment-complaints-history'] 	= 'api/apartmentAdmin/complaintsHistory';
 $route['apartment-complaint-status'] 	= 'api/apartmentAdmin/complaintStatus';
-/*************************** PICKUP BOY *****************************/ 
+/*************************** PICKUP BOY *****************************/
 $route['pickup-boy-payment-orders'] 	= 'api/pickupBoy/paymentOrders';
 $route['pickup-boy-catalogitems'] 		= 'api/pickupBoy/catalogitems';
 $route['pickup-boy-placeorder'] 		= 'api/pickupBoy/placeorder';
@@ -192,20 +192,20 @@ $route['pickup-boy-package-payment']    = 'api/pickupBoy/packagePayment';
 // for areas
 $route['api-areas'] 			= 'api/areas';
 $route['api-roles']				= 'api/roles';
-// for  registration 
+// for  registration
 $route['api-registration'] 		= 'api/registration';
 $route['api-getprofile'] 		= 'api/getprofile';
 $route['api-updateprofile'] 	= 'api/updateprofile';
 // for  services
 $route['api-services'] 			= 'api/services';
-// for authentication 
+// for authentication
 $route['api-authentication'] 	= 'api/authentication';
 // for servoces
 $route['api-services'] 			= 'api/services';
 // for catalog
 $route['api-catalog'] 			= 'api/catalog';
-///:(num)/:(num)/:(num)/:(num) 
-// for place order 
+///:(num)/:(num)/:(num)/:(num)
+// for place order
 $route['api-placeorder'] 		= 'api/placeorder';
 $route['api-catalogitems'] 		= 'api/catalogitems';
 $route['api-serviceitems'] 		= 'api/serviceitems';
@@ -241,20 +241,20 @@ $route['ams-vehicles'] 					= 'api/ams/vehicles';
 $route['ams-family-members'] 			= 'api/ams/familymembers';
 $route['ams-family-members'] 			= 'api/ams/familymembers';
 $route['ams-family-members'] 			= 'api/ams/familymembers';
-// visitor registration 
-$route['ams-visitor-search'] 			= 'api/ams/visitorsearch'; //k 
+// visitor registration
+$route['ams-visitor-search'] 			= 'api/ams/visitorsearch'; //k
 $route['ams-customer-visitor-reg'] 		= 'api/ams/customervisitorregistration'; // k
 $route['ams-faculty-visitor-reg'] 		= 'api/ams/facultyvisitorregistration'; //k
 $route['ams-freq-visitor-reg'] 			= 'api/ams/frequentvisitorregistration'; //k
 $route['ams-faculty-visitor-status'] 	= 'api/ams/facultyvisitorstatus'; //k
-$route['ams-flat-visitor-status'] 		= 'api/ams/flatvisitorstatus'; //k 
-$route['ams-visitor-vs-frequent'] 		= 'api/ams/visitorvsfrequent'; 
+$route['ams-flat-visitor-status'] 		= 'api/ams/flatvisitorstatus'; //k
+$route['ams-visitor-vs-frequent'] 		= 'api/ams/visitorvsfrequent';
 $route['ams-flat-freq-visitor-list'] 	= 'api/ams/flatfrequentvisitorlist'; //k
-$route['ams-apart-freq-visitor-list'] 	= 'api/ams/apartmentfrequentvisitorlist'; //k 
-$route['ams-flat-visitors'] 			= 'api/ams/flatvisitors'; //k 
-$route['ams-flat-unknown-visitors'] 	= 'api/ams/flatunknownvisitors'; //k 
+$route['ams-apart-freq-visitor-list'] 	= 'api/ams/apartmentfrequentvisitorlist'; //k
+$route['ams-flat-visitors'] 			= 'api/ams/flatvisitors'; //k
+$route['ams-flat-unknown-visitors'] 	= 'api/ams/flatunknownvisitors'; //k
 $route['ams-flat-visitor-history'] 		= 'api/ams/flatvisitorhistory';
-$route['ams-apartment-visitors'] 		= 'api/ams/apartmentvisitors'; 
+$route['ams-apartment-visitors'] 		= 'api/ams/apartmentvisitors';
 $route['ams-apartment-visitors-history'] = 'api/ams/apartmentvisitorshistory'; //k
 $route['ams-telephone-directory'] 		= 'api/ams/telephonedirectory';
 $route['ams-trash-visitor'] 			= 'api/ams/trashvisitor';
@@ -278,7 +278,7 @@ $route['ams-staff-status']				= 'api/ams/staffStatus';
 $route['flats-sale']					= 'api/ams/flatsSale';
 $route['flats-rent']					= 'api/ams/flatsRent';
 $route['api-sms']						= 'api/sendSMS';
-// reports 
+// reports
 $route['reports-store-orders'] 			= 'api/reports/storeWiseOrders';
 $route['reports-store-revenue'] 		= 'api/reports/storeWiseRevenue';
 $route['reports-store-garments'] 		= 'api/reports/storeWiseGarments';
@@ -297,3 +297,7 @@ $route['storewise-collection']			= 'api/reports/storewiseCollection';
 $route['customer-package-orders']		= 'api/storeAdmin/customerPackageOrders';
 $route['package-assign-to-pickupboy']	= 'api/storeAdmin/pickupboyAssignCustomerPackage';
 $route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8
+
+// 10jul2018 onwords
+
+$route['superadmin-discount-report'] = 'api/reports/storeWiseDiscountReport';

@@ -243,4 +243,53 @@
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
                     <i class="fa fa-suitcase"></i>
-                    <span>Coup
+                    <span>Coupons</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.coupon"> CouponS</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.coupons-used-details"> Coupons Used Details</a></li>
+                    <!--  <li ui-sref-active="active"><a ui-sref="app.settings">Settings</a></li> -->
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Store Targets</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.storesAndTargets"> Stores & Targets</a></li>
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Visitors</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.visitors">Registered Visitors </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.approvedvisitors"> Approved Visitors </a></li>
+                    <!--            <li ui-sref-active="active"><a ui-sref="app.settings">Settings</a></li> -->
+                </ul>
+            </li>
+            <li class="has-sub" ng-class="{active:$state.includes('app.ui')}" ng-if="userRole == 'SUPER_ADMIN'">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-suitcase"></i>
+                    <span>Packages</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active"><a ui-sref="app.add-package"> Add Package </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.packages"> List Packages </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.add-customer-package"> Add Customer Package </a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.customerPackages"> List Customer Packages </a></li>
+                    <!--            <li ui-sref-active="active"><a ui-sref="app.settings">Settings</a></li> -->
+                </ul>
+            </li>
+
+        </ul>
+        <!-- end top-menu nav -->
+    </div>
+</div>
+<!-- end #top-menu

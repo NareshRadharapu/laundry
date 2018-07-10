@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 class Reports extends REST_Controller {
 	function __construct(){
-		parent::__construct();		
+		parent::__construct();
         $this->methods['user_get']['limit'] = 500; // 500 requests per hour per user/key
         $this->methods['user_post']['limit'] = 100; // 100 requests per hour per user/key
         $this->methods['user_delete']['limit'] = 50; // 50 requests per hour per user/key
@@ -24,29 +24,29 @@ class Reports extends REST_Controller {
       				$orderQ = 'select count(pi.o_id) as totalOrders,
       				sum(pi.closingBalance) as totalSales,
       				DATE_FORMAT(pi.orderDate,"%Y-%m") as month
-      				from place_order_ids as pi 
-      				where pi.store_id = "'.$storeId.'" 
-      				and pi.isDelete=0 
+      				from place_order_ids as pi
+      				where pi.store_id = "'.$storeId.'"
+      				and pi.isDelete=0
       				group by DATE_FORMAT(pi.orderDate,"%Y-%m") order by pi.orderDate asc';
       				$oquery = $this->db->query($orderQ);
       				$resultOrders = $oquery->result();
-      				$cQ = 'select count(DISTINCT c.cust_id) as newCustomers, 
+      				$cQ = 'select count(DISTINCT c.cust_id) as newCustomers,
       				DATE_FORMAT(c.created_at,"%Y-%m") as month
       				from customers as c
       				left join place_order_ids as pi
       				on c.cust_id = pi.customer_id and pi.isDelete=0
       				where c.area_id = "'.$storeId.'"
-      				group by DATE_FORMAT(c.created_at,"%Y-%m") 
+      				group by DATE_FORMAT(c.created_at,"%Y-%m")
       				order by c.created_at asc';
       				$cquery = $this->db->query($cQ);
       				$resultCustomers = $cquery->result();
       				$apcQ = 'select count(DISTINCT c.cust_id) as activeCustomers,
       				DATE_FORMAT(pi.orderDate,"%Y-%m") as month
-      				from customers as c 
+      				from customers as c
       				inner join place_order_ids as pi
       				on c.cust_id = pi.customer_id  and pi.isDelete=0
       				where c.area_id = "'.$storeId.'" and DATE_FORMAT(c.created_at,"%Y-%m")!=DATE_FORMAT(CURDATE(),"%Y-%m")
-      				group by DATE_FORMAT(pi.orderDate,"%Y-%m") 
+      				group by DATE_FORMAT(pi.orderDate,"%Y-%m")
       				order by pi.orderDate asc';
       				$acquery = $this->db->query($apcQ);
       				$resultActiveCustomers = $acquery->result();
@@ -86,7 +86,7 @@ class Reports extends REST_Controller {
       					if(!array_key_exists('activeCustomers', $rv)){
       						$rv['activeCustomers']=0;
       					}
-      				}	
+      				}
       				$this->set_response($result, REST_Controller::HTTP_OK);
       			}
       		}
@@ -181,11 +181,11 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-					}	
+					}
 			}
 			public function storeWiseRevenue_post(){
 					$input = file_get_contents("php://input");
@@ -251,7 +251,7 @@ class Reports extends REST_Controller {
 									$order['revenue'] = number_format($obj->revenue,2,'.','');
 									$orders['reports'][] = $order;
 								}
-								break;						
+								break;
 								default:
 						$query = $this->db->query('select SUM(closingBalance) as revenue, s.name as store, s.area_id as storeId, MONTH(p.orderDate) as month from place_order_ids as p inner join areas as s on p.store_id = s.area_id where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by p.store_id'); //, MONTH(p.orderDate)
 						$orderObj = $query->result();
@@ -268,7 +268,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -373,7 +373,7 @@ class Reports extends REST_Controller {
 								}
 								break;
 								default:
-						$query = $this->db->query('select SUM(icount) as gcount, s.name as store, s.area_id as storeId, MONTH(p.orderDate) as month, it.name as item, itt.name as itype, sr.name as service from place_order as pi inner join place_order_ids as p on pi.order_id = p.order_id inner join areas as s on p.store_id = s.area_id left join items as it on pi.item_id = it.item_id left join services as sr on pi.service_id = sr.service_id  left join item_types as itt on it.itype_id = itt.itype_id  where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by p.store_id, pi.service_id, '.$qgtype.',itt.itype_id'); 
+						$query = $this->db->query('select SUM(icount) as gcount, s.name as store, s.area_id as storeId, MONTH(p.orderDate) as month, it.name as item, itt.name as itype, sr.name as service from place_order as pi inner join place_order_ids as p on pi.order_id = p.order_id inner join areas as s on p.store_id = s.area_id left join items as it on pi.item_id = it.item_id left join services as sr on pi.service_id = sr.service_id  left join item_types as itt on it.itype_id = itt.itype_id  where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by p.store_id, pi.service_id, '.$qgtype.',itt.itype_id');
 						$orderObj = $query->result();
 						foreach ($orderObj as $key => $obj) {
 							$order = array();
@@ -396,11 +396,11 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-					}	
+					}
 			}
 			public function storeWiseBalance_post(){
 					$input = file_get_contents("php://input");
@@ -483,7 +483,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -570,7 +570,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -657,7 +657,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -744,7 +744,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -831,7 +831,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -923,7 +923,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -1006,7 +1006,7 @@ class Reports extends REST_Controller {
 						}catch(Exception $e){
 							$message = ['message'=>$e->getMessage(),'status'=>500];
 							$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
-						}	
+						}
 					}else{
 						$message = ['message'=>'someting went wrong'];
 						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
@@ -1020,14 +1020,14 @@ class Reports extends REST_Controller {
 						if(property_exists($data,'fromDate') && $data->fromDate){
 							  $fromDate = date('Y-m-d',strtotime($data->fromDate));
   						}else{
-  							$fromDate = $fromDateObj->format('Y-m-d');  
+  							$fromDate = $fromDateObj->format('Y-m-d');
   						}
 						  $toDateObj = new \DateTime('today');
 						if(property_exists($data,'toDate') && $data->toDate){
-                $toDate = date('Y-m-d',strtotime($data->toDate)); 
+                $toDate = date('Y-m-d',strtotime($data->toDate));
               }else{
-              	$toDate = $toDateObj->format('Y-m-d');  
-              }       
+              	$toDate = $toDateObj->format('Y-m-d');
+              }
               $result = array();
               $this->load->database();
               $transQ = "select sum(th.paidAmount) as paidAmount, th.paymentType as paymentType, a.name as store from transactions_history as th inner join place_order_ids as pi on th.order_id = pi.order_id inner join areas as a on a.area_id = pi.store_id where DATE(th.created_at) >='$fromDate' and DATE(th.created_at) <='$toDate' group by pi.store_id, th.paymentType having SUM(th.paidAmount)>=0";
@@ -1088,7 +1088,7 @@ class Reports extends REST_Controller {
               }
               foreach ($sc as $skey => $cvalue) {
               	if(array_key_exists($skey, $thStores)){
-              		$flats = array_merge($cvalue,$thStores[$skey]); 
+              		$flats = array_merge($cvalue,$thStores[$skey]);
               	}else{
               		$flats = array_merge($cvalue,array('Cash'=>0,'PayTM'=>0,'DebitCard'=>0,'CreditCard'=>0,'OnlineTransfer'=>0,'Cheque'=>0));
               	}
@@ -1098,7 +1098,101 @@ class Reports extends REST_Controller {
               $this->set_response($result, REST_Controller::HTTP_OK);
             }else{
             	$message =[ 'message' =>' payload mistaken... '];
-            	$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST); 
-            }	 
-      }
+            	$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
+            }
+	  }
+
+	  // 10 jul 2018 onwords
+
+	  public function storeWiseDiscountReport_post(){
+				$input = file_get_contents("php://input");
+				$data = json_decode($input);
+				if(is_object($data) && property_exists($data,'rtype')){
+					try{
+						$qb = $this->_em->createQueryBuilder('p');
+						$fromDate = date('Y-m-d');
+						$toDate = date('Y-m-d');
+						$type = $data->rtype;
+						if(property_exists($data, 'fromDate') && $data->fromDate){
+							$fdate = $data->fromDate;
+							$fromDate = date('Y-m-d',strtotime($fdate));
+						}
+						if(property_exists($data, 'toDate') && $data->toDate){
+							$tdate = $data->toDate;
+							$toDate = date('Y-m-d',strtotime($tdate));
+						}
+						$this->load->database();
+						$orders = array();
+						switch ($type) {
+							case 'monthly':
+							$mq = 'select SUM(p.adminDiscountAmount) as adminDiscountAmount, SUM(p.closingBalance) as excludingDiscount, s.name as store, MONTH(p.orderDate) as month from place_order_ids as p inner join areas as s on p.store_id = s.area_id where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by MONTH(p.orderDate),p.store_id  having SUM(p.adminDiscountAmount)>0';
+							$query = $this->db->query($mq);
+							$orderObj = $query->result();
+							foreach ($orderObj as $key => $obj) {
+								$order = array();
+								$order['type'] = $this->_month[$obj->month];
+								$order['store']		 = $obj->store;
+								$order['adminDiscountAmount'] = $obj->adminDiscountAmount;
+								$order['excludingDiscount'] = $obj->excludingDiscount;
+								$order['includingDiscount'] = $obj->excludingDiscount + $obj->adminDiscountAmount;
+								$orders['reports'][] = $order;
+							}
+							break;
+							case 'yearly':
+							$query = $this->db->query('select SUM(p.adminDiscountAmount) as adminDiscountAmount, s.name as store, YEAR(p.orderDate) as year from place_order_ids as p inner join areas as s on p.store_id = s.area_id where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by p.store_id, YEAR(p.orderDate)  having SUM(p.adminDiscountAmount)>0');
+							$orderObj = $query->result();
+							foreach ($orderObj as $key => $obj) {
+								$order = array();
+								$order['type'] = $obj->year;
+								$order['store']		 = $obj->store;
+								$order['adminDiscountAmount'] = $obj->adminDiscountAmount;
+								$orders['reports'][] = $order;
+							}
+							break;
+							case 'daily':
+							$query = $this->db->query('select SUM(p.adminDiscountAmount) as adminDiscountAmount, s.name as store, DATE(p.orderDate) as day from place_order_ids as p inner join areas as s on p.store_id = s.area_id where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by p.store_id, DATE(p.orderDate)  having SUM(p.adminDiscountAmount)>0');
+							$orderObj = $query->result();
+							foreach ($orderObj as $key => $obj) {
+								$order = array();
+								$order['type'] = $obj->day;
+								$order['store']		 = $obj->store;
+								$order['adminDiscountAmount'] = $obj->adminDiscountAmount;
+								$orders['reports'][] = $order;
+							}
+							break;
+							case 'weekly':
+							$query = $this->db->query('select SUM(p.adminDiscountAmount) as adminDiscountAmount, s.name as store, WEEK(p.orderDate) as week from place_order_ids as p inner join areas as s on p.store_id = s.area_id where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by p.store_id, WEEK(p.orderDate)  having SUM(p.adminDiscountAmount)>0');
+							$orderObj = $query->result();
+							foreach ($orderObj as $key => $obj) {
+								$order = array();
+								$order['type'] 		= "week-".$obj->week;
+								$order['store']		= $obj->store;
+								$order['adminDiscountAmount'] = $obj->adminDiscountAmount;
+								$orders['reports'][] = $order;
+							}
+							break;
+							default:
+							$query = $this->db->query('select SUM(p.adminDiscountAmount) as adminDiscountAmount,  SUM(p.closingBalance) as excludingDiscount, s.name as store, MONTH(p.orderDate) as month from place_order_ids as p inner join areas as s on p.store_id = s.area_id where p.isDelete=0 and DATE(p.orderDate) >="'.$fromDate.'" and DATE(p.orderDate) <="'.$toDate.'" group by p.store_id  having SUM(p.adminDiscountAmount)>0');
+							$orderObj = $query->result();
+							foreach ($orderObj as $key => $obj) {
+								$order = array();
+								$order['type'] = '';//$this->_month[$obj->month];
+								$order['store']		 = $obj->store;
+								$order['adminDiscountAmount'] = $obj->adminDiscountAmount;
+								$order['excludingDiscount'] = $obj->excludingDiscount;
+								$order['includingDiscount'] = $obj->excludingDiscount + $obj->adminDiscountAmount;
+								$orders['reports'][] = $order;
+							}
+							break;
+						}
+						$this->set_response($orders,REST_Controller::HTTP_OK);
+					}catch(Exception $e){
+						$message = ['message'=>$e->getMessage(),'status'=>500];
+						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
+					}
+					}else{
+						$message = ['message'=>'someting went wrong'];
+						$this->set_response($message,REST_Controller::HTTP_BAD_REQUEST);
+					}
+			}
     }
